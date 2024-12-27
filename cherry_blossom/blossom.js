@@ -85,6 +85,7 @@ function drawYAxis(yScale, chart, height, width) {
         .attr("y1", d => yScale(d)) // Position based on tick value
         .attr("y2", d => yScale(d)) // Same position for the end
         .attr("stroke", "#ccc") // Light grey for gridlines
+        .attr("stroke-width", 0.4) // Line thickness
         .attr("opacity", 0.4)
 }
 
