@@ -72,7 +72,11 @@ const yAxis = chart.append("g")
             const date = new Date(d);
             return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         })
-        .tickSize(0) // Remove tick marks
+        .tickSize(0)) // Remove tick marks
+        .selectAll("text") // Select all text elements
+        .style("fill", "#ffffff");
+
+
     ); // Properly close the .call method
 
     // Remove the black Y-axis line
@@ -125,7 +129,9 @@ function renderChart(data) {
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
         .call(d3.axisBottom(xScale)
         .tickFormat(d3.format("d")) // Keep Year
-        .tickSize(0)); // Remove tick mark
+        .tickSize(0)) // Remove tick mark
+     .selectAll("text") // Select all text elements
+        .style("fill", "#ffffff");
         
 
     // Draw Y-axis and gridlines with custom ticks
