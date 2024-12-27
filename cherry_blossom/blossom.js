@@ -1,11 +1,11 @@
 // Define margins with sufficient bottom space
-const margin = { top: 20, right: 20, bottom: 40, left: 30 }; // Increased bottom margin
+const margin = { top: 20, right: 20, bottom: 40, left: 20 }; // Increased bottom margin
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet") // Ensures proportional scaling
-    .attr("viewBox", "0 0 800 400"); // Increased height for more room (400 instead of 300)
+    .attr("viewBox", "0 0 900 400"); // Increased height for more room (400 instead of 300)
 
 // Append a group with margins
 const chart = svg.append("g")
@@ -28,7 +28,7 @@ const tooltip = d3.select("#tooltip");
 // Function to render the chart
 function renderChart(data) {
     // Chart dimensions
-    const width = 800 - margin.left - margin.right;
+    const width = 900 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     // Clear previous content
