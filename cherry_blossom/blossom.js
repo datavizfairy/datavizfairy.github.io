@@ -15,29 +15,29 @@ const svg = d3.select("#container")
 d3.csv("./cleaned_data_with_dates.csv").then(data => {
     console.log("Loaded Data:", data);
 
-    // Parse numeric fields and full date
+    // Parse FullDate as a JavaScript Date object
     data.forEach(d => {
         d.Year = +d.Year; // Ensure Year is numeric
-        d.DayOfMonth = +d.DayOfMonth; // Ensure DayOfMonth is numeric
-        // Parse FullDate as Date object with fallback for invalid formats
-        d.FullDate = new Date(d.FullDate);
+        d.FullDate = new Date(d["Full Date"]); // Parse Full Date
         if (isNaN(d.FullDate)) {
-            console.error(`Invalid FullDate format for entry: ${d.FullDate}, raw value: ${d.FullDate}`);
+            console.error(`Invalid Full Date: ${d["Full Date"]}`);
         }
     });
 
+    // Filter out invalid dates
+    const filteredData = data.filter(d => !isNaN(d.FullDate));
+
     // Sort unique dates for the Y-axis
-    const sortedDates = [...new Set(data.map(d => d.FullDate))]
-        .filter(date => !isNaN(date)) // Remove invalid dates
-        .sort((a, b) => a - b); // Chronological order using Date objects
+    const sortedDates = [...new Set(filteredData.map(d => d.FullDate))]
+        .sort((a, b) => a - b);
 
     // Scales
     const xScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.Year)) // Extent of years
+        .domain(d3.extent(filteredData, d => d.Year))
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates.map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))) // Format for display
+        .domain(sortedDates.map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .range([height, 0])
         .padding(0.5);
 
@@ -54,19 +54,16 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
 
     // Add scatterplot points
     svg.selectAll("circle")
-        .data(data)
+        .data(filteredData)
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => {
-            const formattedDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            return yScale(formattedDate);
-        })
+        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
-                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d.ReferenceName}`);
+                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d["Reference Name"]}`);
         })
         .on("mousemove", event => {
             tooltip.style("left", (event.pageX + 10) + "px")
