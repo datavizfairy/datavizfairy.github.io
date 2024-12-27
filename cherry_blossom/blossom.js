@@ -63,15 +63,16 @@ function drawYAxis(yScale, chart, height, width) {
     const tickCount = 7; // Number of ticks to display
     const spacedTicks = ticks.filter((_, i) => i % Math.ceil(ticks.length / tickCount) === 0);
 
-    // Add Y-axis with custom ticks
-    const yAxis = chart.append("g")
-        .call(d3.axisLeft(yScale)
-            .tickValues(spacedTicks) // Show only selected ticks
-            .tickFormat(d => {
-                const date = new Date(d);
-                return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
-            })
-             .tickSize(0); // Remove tick marks
+// Add Y-axis with custom ticks
+const yAxis = chart.append("g")
+    .call(d3.axisLeft(yScale)
+        .tickValues(spacedTicks) // Show only selected ticks
+        .tickFormat(d => {
+            const date = new Date(d);
+            return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+        })
+        .tickSize(0) // Remove tick marks
+    ); // Properly close the .call method
 
     // Remove the black Y-axis line
     yAxis.select(".domain").remove();
