@@ -65,11 +65,7 @@ function drawYAxis(yScale, chart, height, width) {
     const spacedTicks = ticks.filter((_, i) => i % Math.ceil(ticks.length / tickCount) === 0);
 
 
-To remove the Y-axis line but keep the labels, you need to specifically target the .domain path element in the axis and remove it. Here's how you can do it:
 
-Correct Code to Remove Y-Axis Line
-javascript
-Copy code
 // Add Y-axis with custom ticks
 const yAxis = chart.append("g")
     .call(d3.axisLeft(yScale)
@@ -86,7 +82,8 @@ yAxis.select(".domain").remove();
 
 // Style the text (optional)
 yAxis.selectAll("text")
-    .style("fill", "#ffffff"); // Change text colour
+    .style("fill", "#ffffff") // Change text colour
+     .attr("opacity", 0.8);
 
     // Add horizontal gridlines for these ticks
     chart.append("g")
@@ -196,7 +193,7 @@ function renderChart(data) {
             flower.transition("pulse")
                 .duration(pulseSpeed)
                 .ease(d3.easeSinInOut)
-                .attr("d", d => sakuraPath(Math.random() * 15 + 15)) // Random size between 15 and 30
+                .attr("d", d => sakuraPath(Math.random() * 8 + 22)) // Random size between 15 and 30
                 .on("end", pulse); // Loop pulsing
         }
 
