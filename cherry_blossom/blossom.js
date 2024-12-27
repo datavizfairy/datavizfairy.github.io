@@ -1,5 +1,5 @@
 // Define margins with sufficient bottom space
-const margin = { top: 20, right: 20, bottom: 20, left: 30 }; // Increased bottom margin
+const margin = { top: 20, right: 20, bottom: 20, left: 40 }; // Increased bottom margin
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
@@ -13,7 +13,7 @@ const chart = svg.append("g")
 
 // Append a title
 svg.append("text")
-    .attr("x", margin.left-20) // Align to the left
+    .attr("x", margin.left-40) // Align to the left
     .attr("y", margin.top/2) // Slightly above the chart
     .attr("text-anchor", "start")
     .style("font-size", "16px")
