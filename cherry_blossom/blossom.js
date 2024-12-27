@@ -14,7 +14,7 @@ const chart = svg.append("g")
 // Append a title
 svg.append("text")
     .attr("x", margin.left - 40) // Align to the left
-    .attr("y", -10) // Slightly above the chart
+    .attr("y", 0) // Slightly above the chart
     .attr("text-anchor", "start")
     .style("font-size", "16px")
     .style("font-weight", "bold")
@@ -90,7 +90,7 @@ function renderChart(data) {
         .attr("class", "flower")
         .attr("d", d => sakuraPath(20)) // Initial size
         .attr("fill", () => shadesOfPink[Math.floor(Math.random() * shadesOfPink.length)])
-        .attr("opacity", 0.9)
+        .attr("opacity", 0.8)
         .attr("transform", d => `translate(${xScale(d.Year)},${yScale(d.FullDate)})`)
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
