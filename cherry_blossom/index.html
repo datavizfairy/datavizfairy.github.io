@@ -6,6 +6,7 @@
     <title>Kyoto Cherry Blossom Visualisation</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="./blossom.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         /* Full viewport background with container adjustments */
         body, html {
@@ -40,11 +41,15 @@
             transition: opacity 0.3s;
         }
 
-        .montserrat-<uniquifier> {
-          font-family: "Montserrat", serif;
-          font-optical-sizing: auto;
-          font-weight: <weight>;
-          font-style: normal;
+        .montserrat-light {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 300; /* Light */
+        }
+        
+        
+        .montserrat-normal {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400; /* Regular */
         }
         
         svg {
