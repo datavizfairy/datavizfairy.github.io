@@ -15,21 +15,15 @@ const svg = d3.select("#container")
 d3.csv("./cleaned_data_with_dates.csv").then(data => {
     console.log("Loaded Data:", data);
 
-    // Parse Full Date manually and extract Year, Month, and Day
+    // Parse Full Date as a JavaScript Date object
     data.forEach(d => {
-        const [year, month, day] = d["Full Date"].split("-").map(Number);
-        d.Year = year; // Use the Year directly
-        d.Month = month; // Month as a number (1-12)
-        d.Day = day; // Day of the month
+        d.FullDate = new Date(d["Full Date"]); // Parse as Date object
+        d.Year = +d.Year; // Ensure Year is numeric
     });
 
-    // Create a custom chronological sorting function
-    const sortedDates = [...new Set(data.map(d => `${d.Month}-${d.Day}`))]
-        .sort((a, b) => {
-            const [monthA, dayA] = a.split("-").map(Number);
-            const [monthB, dayB] = b.split("-").map(Number);
-            return monthA === monthB ? dayA - dayB : monthA - monthB;
-        });
+    // Sort unique dates for the Y-axis
+    const sortedDates = [...new Set(data.map(d => d.FullDate))]
+        .sort((a, b) => a - b); // Sort dates chronologically
 
     // Scales
     const xScale = d3.scaleLinear()
@@ -37,10 +31,7 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates.map(date => {
-            const [month, day] = date.split("-");
-            return `${new Date(2023, month - 1, day).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-        }))
+        .domain(sortedDates.map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .range([height, 0])
         .padding(0.5);
 
@@ -61,16 +52,12 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => {
-            const formattedDate = `${d.Month}-${d.Day}`;
-            const displayDate = `${new Date(2023, d.Month - 1, d.Day).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
-            return yScale(displayDate);
-        })
+        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
-                .html(`Year: ${d.Year}<br>Date: ${d["Date"]}<br>Reference: ${d["Reference Name"]}`);
+                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d["Reference Name"]}`);
         })
         .on("mousemove", event => {
             tooltip.style("left", (event.pageX + 10) + "px")
