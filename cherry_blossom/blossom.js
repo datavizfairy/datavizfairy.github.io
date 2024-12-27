@@ -64,6 +64,12 @@ function drawYAxis(yScale, chart, height, width) {
     const tickCount = 7; // Number of ticks to display
     const spacedTicks = ticks.filter((_, i) => i % Math.ceil(ticks.length / tickCount) === 0);
 
+
+To remove the Y-axis line but keep the labels, you need to specifically target the .domain path element in the axis and remove it. Here's how you can do it:
+
+Correct Code to Remove Y-Axis Line
+javascript
+Copy code
 // Add Y-axis with custom ticks
 const yAxis = chart.append("g")
     .call(d3.axisLeft(yScale)
@@ -73,12 +79,14 @@ const yAxis = chart.append("g")
             return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         })
         .tickSize(0) // Remove tick marks
-    )
-    .selectAll("text") // Select all text elements
-    .style("fill", "#ffffff"); // Style the text colour
+    );
 
-    // Remove the black Y-axis line
-    yAxis.select(".domain").remove();
+// Remove the Y-axis line
+yAxis.select(".domain").remove();
+
+// Style the text (optional)
+yAxis.selectAll("text")
+    .style("fill", "#ffffff"); // Change text colour
 
     // Add horizontal gridlines for these ticks
     chart.append("g")
