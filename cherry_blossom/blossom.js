@@ -54,6 +54,40 @@ function sakuraPath(size) {
     return path;
 }
 
+
+// Draw Y-axis gridlines and custom ticks
+function drawYAxis(yScale, chart, height, width) {
+    // Get all ticks and select approximately 5 evenly spaced ones
+    const ticks = yScale.domain();
+    const tickCount = 5; // Number of ticks to display
+    const spacedTicks = ticks.filter((_, i) => i % Math.ceil(ticks.length / tickCount) === 0);
+
+    // Add Y-axis with custom ticks
+    chart.append("g")
+        .call(d3.axisLeft(yScale)
+            .tickValues(spacedTicks) // Show only selected ticks
+            .tickFormat(d => {
+                const date = new Date(d);
+                return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+            }));
+
+    // Add horizontal gridlines for these ticks
+    chart.append("g")
+        .selectAll("line")
+        .data(spacedTicks)
+        .enter()
+        .append("line")
+        .attr("x1", 0) // Start at the left
+        .attr("x2", width) // Extend to the right
+        .attr("y1", d => yScale(d)) // Position based on tick value
+        .attr("y2", d => yScale(d)) // Same position for the end
+        .attr("stroke", "#ccc") // Light grey for gridlines
+        .attr("stroke-dasharray", "2,2"); // Dashed line for style
+}
+
+
+
+
 // Function to render the chart
 function renderChart(data) {
     // Chart dimensions
