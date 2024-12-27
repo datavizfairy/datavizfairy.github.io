@@ -25,7 +25,7 @@ svg.append("text")
     .style("font-size", "14px")
     .style("font-family", "Trebuchet MS")
     .style("fill", "#555")
-    .text("Historical data of cherry blossom bloom dates");
+    .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
 // Append a group for the chart
 const chart = svg.append("g")
