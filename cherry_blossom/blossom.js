@@ -15,7 +15,7 @@ svg.append("text")
     .style("font-size", "18px")
     .style("font-weight", "bold")
     .style("font-family", "Trebuchet MS")
-    .text("KYOTO, JAPAN: Cherry Blossom Dates");
+    .text("KYOTO, JAPAN | Cherry Blossom Seasonality");
 
 // Append a subtitle
 svg.append("text")
@@ -99,7 +99,7 @@ function renderChart(data) {
         .attr("class", "flower")
         .attr("d", d => sakuraPath(20)) // Initial size
         .attr("fill", () => shadesOfPink[Math.floor(Math.random() * shadesOfPink.length)])
-        .attr("opacity", 0.9)
+        .attr("opacity", 0.8)
         .attr("transform", d => `translate(${xScale(d.Year)},${yScale(d.FullDate)})`)
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
