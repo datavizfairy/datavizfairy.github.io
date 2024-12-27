@@ -121,7 +121,8 @@ function renderChart(data) {
 // Draw X-axis
     chart.append("g")
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
-        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
+        .tickSize(0)); // Remove tick marks);
 
     // Draw Y-axis and gridlines with custom ticks
     drawYAxis(yScale, chart, height, width);
