@@ -16,12 +16,13 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
     // Parse numeric fields and full date
     data.forEach(d => {
         d.Year = +d.Year; // Ensure Year is numeric
+        d.DayOfMonth = +d.DayOfMonth; // Ensure DayOfMonth is numeric
         d.FullDate = new Date(d.FullDate); // Parse FullDate as Date object
     });
 
     // Sort unique dates for the Y-axis
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
-        .sort((a, b) => a - b); // Chronological order
+        .sort((a, b) => a - b); // Chronological order using Date objects
 
     // Scales
     const xScale = d3.scaleLinear()
@@ -29,7 +30,7 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates.map(d => d.toDateString())) // Format for display
+        .domain(sortedDates.map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))) // Format for display
         .range([height, 0])
         .padding(0.5);
 
@@ -50,12 +51,12 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.FullDate.toDateString()))
+        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
-                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toDateString()}<br>Reference: ${d.ReferenceName}`);
+                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d.ReferenceName}`);
         })
         .on("mousemove", event => {
             tooltip.style("left", (event.pageX + 10) + "px")
