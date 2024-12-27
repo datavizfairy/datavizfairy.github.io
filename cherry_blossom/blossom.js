@@ -13,15 +13,22 @@ const svg = d3.select("#container")
 
 // Load data from the CSV
 d3.csv("./cleaned_data_with_dates.csv").then(data => {
+    console.log("Loaded Data:", data);
+
     // Parse numeric fields and full date
     data.forEach(d => {
         d.Year = +d.Year; // Ensure Year is numeric
         d.DayOfMonth = +d.DayOfMonth; // Ensure DayOfMonth is numeric
-        d.FullDate = new Date(d.FullDate); // Parse FullDate as Date object
+        // Parse FullDate as Date object with fallback for invalid formats
+        d.FullDate = new Date(d.FullDate);
+        if (isNaN(d.FullDate)) {
+            console.error(`Invalid FullDate format for entry: ${d.FullDate}, raw value: ${d.FullDate}`);
+        }
     });
 
     // Sort unique dates for the Y-axis
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
+        .filter(date => !isNaN(date)) // Remove invalid dates
         .sort((a, b) => a - b); // Chronological order using Date objects
 
     // Scales
@@ -51,7 +58,10 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
+        .attr("cy", d => {
+            const formattedDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return yScale(formattedDate);
+        })
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
