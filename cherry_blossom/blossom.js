@@ -176,7 +176,7 @@ function renderChart(data) {
             flower.transition("pulse")
                 .duration(pulseSpeed)
                 .ease(d3.easeSinInOut)
-                .attr("d", d => sakuraPath(Math.random() * 5 + 10)) // Random size between 15 and 30
+                .attr("d", d => sakuraPath(Math.random() * 10 + 10)) // Random size between 15 and 30
                 .on("end", pulse); // Loop pulsing
         }
 
