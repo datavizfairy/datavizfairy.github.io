@@ -99,7 +99,7 @@ function drawYAxis(yScale, chart, height, width) {
 function renderChart(data) {
     // Chart dimensions
     const width = 1000 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom // Adjust height
+    const height = 500 - margin.top - margin.bottom; // Adjust height
 
     // Clear previous content
     chart.selectAll("*").remove();
@@ -121,8 +121,10 @@ function renderChart(data) {
 // Draw X-axis
     chart.append("g")
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
-        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
-        .tickSize(0)); // Remove tick marks);
+        .call(d3.axisBottom(xScale)
+        .tickFormat(d3.format("d")) // Keep Year
+        .tickSize(0)); // Remove tick mark
+        
 
     // Draw Y-axis and gridlines with custom ticks
     drawYAxis(yScale, chart, height, width);
