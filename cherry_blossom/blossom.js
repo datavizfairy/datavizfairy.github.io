@@ -1,7 +1,7 @@
 // Define margins
 const margin = { top: 20, right: 20, bottom: 40, left: 100 };
 
-// Append an SVG with dynamic resizing
+// Append responsive SVG with proper scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
@@ -16,17 +16,14 @@ const tooltip = d3.select("#tooltip");
 // Function to render the chart
 function renderChart(data) {
     // Get container dimensions
-    const containerWidth = document.getElementById("container").clientWidth;
-    const containerHeight = document.getElementById("container").clientHeight;
+    const container = document.getElementById("container");
+    const width = container.clientWidth - margin.left - margin.right;
+    const height = container.clientHeight - margin.top - margin.bottom;
 
-    // Calculate dynamic dimensions
-    const width = containerWidth - margin.left - margin.right;
-    const height = containerHeight - margin.top - margin.bottom;
-
-    // Clear the SVG before re-rendering
+    // Clear previous chart content
     svg.selectAll("*").remove();
 
-    // Scales
+    // Define scales
     const xScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.Year)) // Year range
         .range([0, width]);
@@ -44,7 +41,7 @@ function renderChart(data) {
     svg.append("g")
         .call(d3.axisLeft(yScale));
 
-    // Draw points
+    // Draw scatterplot points
     svg.selectAll("circle")
         .data(data)
         .enter()
@@ -58,24 +55,23 @@ function renderChart(data) {
                 .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d["Reference Name"]}`);
         })
         .on("mousemove", event => {
-            tooltip.style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 20) + "px");
+            tooltip.style("left", `${event.pageX + 10}px`)
+                .style("top", `${event.pageY - 20}px`);
         })
         .on("mouseout", () => {
             tooltip.style("opacity", 0);
         });
 }
 
-// Load data and render chart
+// Load data and render the chart
 d3.csv("./cleaned_data_with_dates.csv").then(csvData => {
     const data = csvData.map(d => {
-        d.FullDate = new Date(d["Full Date"]);
-        d.Year = +d.Year;
+        d.FullDate = new Date(d["Full Date"]); // Parse Full Date
+        d.Year = +d.Year; // Ensure Year is numeric
         return d;
     });
 
-    // Initial render
-    renderChart(data);
+    renderChart(data); // Initial render
 
     // Redraw chart on window resize
     window.addEventListener("resize", () => renderChart(data));
