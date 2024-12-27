@@ -106,8 +106,8 @@ function renderChart(data) {
     // Animation for Constant Rotation and Pulsating Size
     flowers.each(function (d, i) {
         const flower = d3.select(this);
-        const rotationSpeed = Math.random() * 4000 + 3000; // Random speed (3-7 seconds)
-        const pulseSpeed = Math.random() * 2000 + 1000; // Random pulse speed (1-3 seconds)
+        const rotationSpeed = Math.random() * 4000 + 10000; // Random speed (3-7 seconds)
+        const pulseSpeed = Math.random() * 2000 + 10000; // Random pulse speed (1-3 seconds)
 
         // Rotate function
         function rotate() {
