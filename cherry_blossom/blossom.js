@@ -1,5 +1,5 @@
 // Define margins with sufficient bottom space
-const margin = { top: 40, right: 20, bottom: 20, left: 40 }; // Increased bottom margin
+const margin = { top: 40, right: 40, bottom: 20, left: 40 }; // Increased bottom margin
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
