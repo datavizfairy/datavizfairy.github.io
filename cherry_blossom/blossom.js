@@ -59,17 +59,20 @@ function sakuraPath(size) {
 function drawYAxis(yScale, chart, height, width) {
     // Get all ticks and select approximately 5 evenly spaced ones
     const ticks = yScale.domain();
-    const tickCount = 5; // Number of ticks to display
+    const tickCount = 7; // Number of ticks to display
     const spacedTicks = ticks.filter((_, i) => i % Math.ceil(ticks.length / tickCount) === 0);
 
     // Add Y-axis with custom ticks
-    chart.append("g")
+    const yAxis = chart.append("g")
         .call(d3.axisLeft(yScale)
             .tickValues(spacedTicks) // Show only selected ticks
             .tickFormat(d => {
                 const date = new Date(d);
                 return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
             }));
+
+    // Remove the black Y-axis line
+    yAxis.select(".domain").remove();
 
     // Add horizontal gridlines for these ticks
     chart.append("g")
@@ -84,6 +87,7 @@ function drawYAxis(yScale, chart, height, width) {
         .attr("stroke", "#ccc") // Light grey for gridlines
         .attr("stroke-dasharray", "2,2"); // Dashed line for style
 }
+
 
 
 
