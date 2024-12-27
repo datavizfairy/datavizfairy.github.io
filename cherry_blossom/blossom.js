@@ -20,7 +20,7 @@ svg.append("text")
     .style("font-weight", "bold")
     .style("fill", "black")
     .attr("font-family", "Trebuchet MS")
-    .text("Kyoto Cherry Blossom Data");
+    .text("KYOTO, JAPAN");
 
 // Tooltip reference
 const tooltip = d3.select("#tooltip");
