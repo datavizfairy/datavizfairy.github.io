@@ -50,7 +50,7 @@ function sakuraPath(size) {
 function renderChart(data) {
     // Chart dimensions
     const width = 800 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 400 - margin.top - margin.bottom - 20;
 
     // Clear previous content
     chart.selectAll("*").remove();
