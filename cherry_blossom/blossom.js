@@ -13,7 +13,7 @@ svg.append("text")
     .attr("y", 20) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
-    .style("font-family", "Montserrat", serif)
+    .style("font-family", "Montserrat", sans-serif)
     .text("KYOTO, JAPAN | Cherry Blossom Seasonality");
 
 // Append a subtitle
