@@ -1,48 +1,36 @@
-// Dimensions and margins
+// Define dimensions and margins dynamically
 const margin = { top: 20, right: 20, bottom: 30, left: 30 };
-const width = 1500 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+let width = window.innerWidth - margin.left - margin.right; // Dynamic width
+let height = window.innerHeight - margin.top - margin.bottom; // Dynamic height
 
-// Create SVG in the container
+// Create SVG with a responsive viewBox
 const svg = d3.select("#container")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Load data from the CSV
-d3.csv("./cleaned_data_with_dates.csv").then(data => {
-    console.log("Loaded Data:", data);
+// Function to render the chart
+function renderChart() {
+    // Update dynamic dimensions
+    width = window.innerWidth - margin.left - margin.right;
+    height = window.innerHeight - margin.top - margin.bottom;
 
-    // Parse Full Date as a JavaScript Date object
-    data.forEach(d => {
-        d.FullDate = new Date(d["Full Date"]); // Parse Full Date
-        d.Year = +d.Year; // Ensure Year is numeric
-    });
-
-    // Sort unique dates for the Y-axis
-    const sortedDates = [...new Set(data.map(d => d.FullDate))]
-        .sort((a, b) => a - b); // Chronological order using Date objects
-
-    // Map sorted dates to readable format
-    const formattedDates = sortedDates.map(d =>
-        d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-    );
-
-    console.log("Sorted Formatted Dates:", formattedDates);
-
-    // Scales
+    // Update scales dynamically
     const xScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.Year))
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(formattedDates) // Use formatted dates for the Y-axis
+        .domain(formattedDates)
         .range([height, 0])
         .padding(0.5);
 
-    // Add axes
+    // Clear previous chart content
+    svg.selectAll("*").remove();
+
+    // Redraw axes
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
@@ -50,20 +38,14 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
     svg.append("g")
         .call(d3.axisLeft(yScale));
 
-    // Tooltip reference
-    const tooltip = d3.select("#tooltip");
-
-    // Add scatterplot points
+    // Redraw points
     svg.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => {
-            const formattedDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            return yScale(formattedDate);
-        })
-        .attr("r", 5)
+        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
+        .attr("r", Math.max(3, width / 300)) // Dynamically adjust circle size
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
@@ -76,6 +58,23 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .on("mouseout", () => {
             tooltip.style("opacity", 0);
         });
-}).catch(error => {
-    console.error("Error loading the data:", error);
+}
+
+// Load data and call renderChart
+let data, formattedDates;
+d3.csv("./cleaned_data_with_dates.csv").then(csvData => {
+    data = csvData.map(d => {
+        d.FullDate = new Date(d["Full Date"]);
+        d.Year = +d.Year;
+        return d;
+    });
+
+    formattedDates = [...new Set(data.map(d => d.FullDate))]
+        .sort((a, b) => a - b)
+        .map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+
+    renderChart();
 });
+
+// Handle window resize
+window.addEventListener("resize", renderChart);
