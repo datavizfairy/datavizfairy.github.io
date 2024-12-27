@@ -9,8 +9,8 @@ const svg = d3.select("#container")
 
 // Append a title
 svg.append("text")
-    .attr("x", margin.left + 10) // Position relative to the left margin
-    .attr("y", 20) // Position above the chart
+    .attr("x", 50) // Position relative to the left margin
+    .attr("y", 25) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -18,10 +18,10 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", margin.left + 10)
+    .attr("x", 50)
     .attr("y", 50) // Slightly below the title
     .attr("text-anchor", "start")
-    .style("font-size", "13px")
+    .style("font-size", "11px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#555")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
