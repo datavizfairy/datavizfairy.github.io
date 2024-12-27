@@ -1,11 +1,11 @@
 // Define margins
-const margin = { top: 20, right: 20, bottom: 40, left: 100 };
+const margin = { top: 50, right: 20, bottom: 40, left: 100 };
 
 // Create SVG
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 800 450");
+    .attr("viewBox", "0 0 800 300");
 
 // Append a group with margins
 const chart = svg.append("g")
