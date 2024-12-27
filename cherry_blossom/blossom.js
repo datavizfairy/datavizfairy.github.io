@@ -130,6 +130,8 @@ function renderChart(data) {
         .call(d3.axisBottom(xScale)
         .tickFormat(d3.format("d")) // Keep Year
         .tickSize(0)) // Remove tick mark
+         .select(".domain") // Select the X-axis line
+    .remove() // Remove the axis line
      .selectAll("text") // Select all text elements
         .style("fill", "#ffffff");
         
