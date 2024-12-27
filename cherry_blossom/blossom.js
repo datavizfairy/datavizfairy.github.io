@@ -52,7 +52,10 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
+        .attr("cy", d => {
+            const displayDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return yScale(displayDate);
+        })
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
