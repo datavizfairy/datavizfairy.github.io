@@ -1,36 +1,42 @@
-// Define dimensions and margins dynamically
-const margin = { top: 20, right: 20, bottom: 30, left: 30 };
-let width = window.innerWidth - margin.left - margin.right; // Dynamic width
-let height = window.innerHeight - margin.top - margin.bottom; // Dynamic height
+// Define initial margins
+const margin = { top: 20, right: 20, bottom: 30, left: 80 };
+let width, height;
 
-// Create SVG with a responsive viewBox
+// Create the SVG container with a viewBox for scaling
 const svg = d3.select("#container")
     .append("svg")
-    .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("viewBox", "0 0 800 450") // Default viewBox size
+    .append("g");
+
+// Tooltip reference
+const tooltip = d3.select("#tooltip");
 
 // Function to render the chart
-function renderChart() {
+function renderChart(data) {
     // Update dynamic dimensions
-    width = window.innerWidth - margin.left - margin.right;
-    height = window.innerHeight - margin.top - margin.bottom;
+    const containerWidth = document.getElementById("container").clientWidth;
+    const containerHeight = document.getElementById("container").clientHeight;
+    width = containerWidth - margin.left - margin.right;
+    height = containerHeight - margin.top - margin.bottom;
 
-    // Update scales dynamically
+    // Clear the SVG before re-rendering
+    svg.selectAll("*").remove();
+
+    // Update group position
+    svg.attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Scales
     const xScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.Year))
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(formattedDates)
+        .domain(data.map(d => d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
         .range([height, 0])
         .padding(0.5);
 
-    // Clear previous chart content
-    svg.selectAll("*").remove();
-
-    // Redraw axes
+    // Draw axes
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
@@ -38,14 +44,14 @@ function renderChart() {
     svg.append("g")
         .call(d3.axisLeft(yScale));
 
-    // Redraw points
+    // Draw scatterplot points
     svg.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
         .attr("cy", d => yScale(d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
-        .attr("r", Math.max(3, width / 300)) // Dynamically adjust circle size
+        .attr("r", Math.max(3, width / 300)) // Dynamic circle size
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
@@ -60,21 +66,16 @@ function renderChart() {
         });
 }
 
-// Load data and call renderChart
-let data, formattedDates;
+// Load data and render the chart
 d3.csv("./cleaned_data_with_dates.csv").then(csvData => {
-    data = csvData.map(d => {
+    const data = csvData.map(d => {
         d.FullDate = new Date(d["Full Date"]);
         d.Year = +d.Year;
         return d;
     });
 
-    formattedDates = [...new Set(data.map(d => d.FullDate))]
-        .sort((a, b) => a - b)
-        .map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+    renderChart(data); // Initial render
 
-    renderChart();
+    // Redraw chart on window resize
+    window.addEventListener("resize", () => renderChart(data));
 });
-
-// Handle window resize
-window.addEventListener("resize", renderChart);
