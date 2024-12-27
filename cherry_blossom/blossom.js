@@ -17,13 +17,20 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
 
     // Parse Full Date as a JavaScript Date object
     data.forEach(d => {
-        d.FullDate = new Date(d["Full Date"]); // Parse as Date object
+        d.FullDate = new Date(d["Full Date"]); // Parse Full Date
         d.Year = +d.Year; // Ensure Year is numeric
     });
 
     // Sort unique dates for the Y-axis
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
-        .sort((a, b) => a - b); // Sort dates chronologically
+        .sort((a, b) => a - b); // Chronological order using Date objects
+
+    // Map sorted dates to readable format
+    const formattedDates = sortedDates.map(d =>
+        d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    );
+
+    console.log("Sorted Formatted Dates:", formattedDates);
 
     // Scales
     const xScale = d3.scaleLinear()
@@ -31,7 +38,7 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates.map(d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })))
+        .domain(formattedDates) // Use formatted dates for the Y-axis
         .range([height, 0])
         .padding(0.5);
 
@@ -53,8 +60,8 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .append("circle")
         .attr("cx", d => xScale(d.Year))
         .attr("cy", d => {
-            const displayDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            return yScale(displayDate);
+            const formattedDate = d.FullDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return yScale(formattedDate);
         })
         .attr("r", 5)
         .attr("fill", "steelblue")
