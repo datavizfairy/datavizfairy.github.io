@@ -7,6 +7,22 @@ const svg = d3.select("#container")
     .attr("preserveAspectRatio", "xMidYMid meet")
     .attr("viewBox", "0 0 1000 500"); // Adjusted height
 
+// Add a filter for the glowing effect
+svg.append("defs")
+    .append("filter")
+    .attr("id", "glow")
+    .append("feGaussianBlur")
+    .attr("stdDeviation", 10) // Controls the blur intensity
+    .attr("result", "coloredBlur");
+
+// Add the glowing moon
+svg.append("circle")
+    .attr("cx", 950) // X position near the top-right (adjust as needed)
+    .attr("cy", 50)  // Y position
+    .attr("r", 30)   // Radius of the moon
+    .attr("fill", "#fdfd96") // Soft yellow for the moon
+    .style("filter", "url(#glow)"); // Apply the glow effect
+
 // Append a title
 svg.append("text")
     .attr("x", 50) // Position relative to the left margin
