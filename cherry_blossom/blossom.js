@@ -5,7 +5,7 @@ const margin = { top: 20, right: 40, bottom: 20, left: 80 };
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet") // Ensures proportional scaling
-    .attr("viewBox", "0 0 900 400"); // Increased height for more room
+    .attr("viewBox", "0 0 800 400"); // Increased height for more room
 
 // Append a group with margins
 const chart = svg.append("g")
@@ -49,7 +49,7 @@ function sakuraPath(size) {
 // Function to render the chart
 function renderChart(data) {
     // Chart dimensions
-    const width = 900 - margin.left - margin.right;
+    const width = 800 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     // Clear previous content
