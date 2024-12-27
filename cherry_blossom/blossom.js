@@ -72,10 +72,10 @@ const yAxis = chart.append("g")
             const date = new Date(d);
             return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
         })
-        .tickSize(0)) // Remove tick marks
-        .selectAll("text") // Select all text elements
-        .style("fill", "#ffffff")
-    ); // Properly close the .call method
+        .tickSize(0) // Remove tick marks
+    )
+    .selectAll("text") // Select all text elements
+    .style("fill", "#ffffff"); // Style the text colour
 
     // Remove the black Y-axis line
     yAxis.select(".domain").remove();
