@@ -18,7 +18,7 @@ const tooltip = d3.select("#tooltip");
 function renderChart(data) {
     // Chart dimensions
     const width = 800 - margin.left - margin.right;
-    const height = 450 - margin.top - margin.bottom;
+    const height = 300 - margin.top - margin.bottom;
 
     // Clear previous elements
     chart.selectAll("*").remove();
