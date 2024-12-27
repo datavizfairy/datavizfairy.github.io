@@ -19,6 +19,7 @@ svg.append("text")
     .style("font-size", "16px")
     .style("font-weight", "bold")
     .style("fill", "black")
+    .attr("font-family", "Trebuchet MS, sans-serif")
     .text("Kyoto Cherry Blossom Data");
 
 // Tooltip reference
