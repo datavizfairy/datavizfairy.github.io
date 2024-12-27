@@ -22,7 +22,7 @@ svg.append("text")
     .attr("y", 50) // Slightly below the title
     .attr("text-anchor", "start")
     .style("font-size", "13px")
-    .style("font-family", "Montserrat", serif)
+    .style("font-family", "Montserrat", sans-serif)
     .style("fill", "#555")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
