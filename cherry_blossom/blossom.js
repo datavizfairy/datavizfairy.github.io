@@ -70,7 +70,8 @@ function drawYAxis(yScale, chart, height, width) {
             .tickFormat(d => {
                 const date = new Date(d);
                 return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-            }));
+            })
+             .tickSize(0)); // Remove tick marks);
 
     // Remove the black Y-axis line
     yAxis.select(".domain").remove();
