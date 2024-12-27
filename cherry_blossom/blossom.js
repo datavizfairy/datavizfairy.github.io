@@ -13,7 +13,6 @@ svg.append("text")
     .attr("y", 20) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
-    .style("font-weight", "bold")
     .style("font-family", "Trebuchet MS")
     .text("KYOTO, JAPAN | Cherry Blossom Seasonality");
 
@@ -22,7 +21,7 @@ svg.append("text")
     .attr("x", margin.left + 10)
     .attr("y", 50) // Slightly below the title
     .attr("text-anchor", "start")
-    .style("font-size", "14px")
+    .style("font-size", "13px")
     .style("font-family", "Trebuchet MS")
     .style("fill", "#555")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
