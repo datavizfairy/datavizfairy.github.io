@@ -11,21 +11,29 @@ const svg = d3.select("#container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Load data from the hosted CSV
+// Load data from the CSV
 d3.csv("./cleaned_data_with_dates.csv").then(data => {
-    // Parse numeric fields
+    // Parse numeric fields and create a sortable date field
     data.forEach(d => {
-        d.Year = +d.Year;
-        d.DayOfMonth = +d.DayOfMonth;
+        d.Year = +d.Year; // Ensure Year is numeric
+        d.DayOfMonth = +d.DayOfMonth; // Ensure DayOfMonth is numeric
+        d.SortableDate = new Date(2023, d.Month - 1, d.DayOfMonth); // Dummy year for sorting
+    });
+
+    // Create a sorted array of unique dates
+    const sortedDates = [...new Set(data.map(d => d.Date))].sort((a, b) => {
+        const dateA = new Date(2023, a.split(" ")[0] === "Apr" ? 3 : 2, +a.split(" ")[1]);
+        const dateB = new Date(2023, b.split(" ")[0] === "Apr" ? 3 : 2, +b.split(" ")[1]);
+        return dateA - dateB;
     });
 
     // Scales
     const xScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.Year))
+        .domain(d3.extent(data, d => d.Year)) // Extent of years
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(data.map(d => d.Date)) // Use "Date" for y-axis labels
+        .domain(sortedDates) // Use sorted dates
         .range([height, 0])
         .padding(0.5);
 
