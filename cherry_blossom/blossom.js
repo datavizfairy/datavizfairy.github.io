@@ -13,19 +13,15 @@ const svg = d3.select("#container")
 
 // Load data from the CSV
 d3.csv("./cleaned_data_with_dates.csv").then(data => {
-    // Parse numeric fields and create a sortable date field
+    // Parse numeric fields and full date
     data.forEach(d => {
         d.Year = +d.Year; // Ensure Year is numeric
-        d.DayOfMonth = +d.DayOfMonth; // Ensure DayOfMonth is numeric
-        d.SortableDate = new Date(2023, d.Month - 1, d.DayOfMonth); // Dummy year for sorting
+        d.FullDate = new Date(d.FullDate); // Parse FullDate as Date object
     });
 
-    // Create a sorted array of unique dates
-    const sortedDates = [...new Set(data.map(d => d.Date))].sort((a, b) => {
-        const dateA = new Date(2023, a.split(" ")[0] === "Apr" ? 3 : 2, +a.split(" ")[1]);
-        const dateB = new Date(2023, b.split(" ")[0] === "Apr" ? 3 : 2, +b.split(" ")[1]);
-        return dateA - dateB;
-    });
+    // Sort unique dates for the Y-axis
+    const sortedDates = [...new Set(data.map(d => d.FullDate))]
+        .sort((a, b) => a - b); // Chronological order
 
     // Scales
     const xScale = d3.scaleLinear()
@@ -33,7 +29,7 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates) // Use sorted dates
+        .domain(sortedDates.map(d => d.toDateString())) // Format for display
         .range([height, 0])
         .padding(0.5);
 
@@ -54,12 +50,12 @@ d3.csv("./cleaned_data_with_dates.csv").then(data => {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.Date))
+        .attr("cy", d => yScale(d.FullDate.toDateString()))
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
-                .html(`Year: ${d.Year}<br>Date: ${d.Date}<br>Reference: ${d.ReferenceName}`);
+                .html(`Year: ${d.Year}<br>Date: ${d.FullDate.toDateString()}<br>Reference: ${d.ReferenceName}`);
         })
         .on("mousemove", event => {
             tooltip.style("left", (event.pageX + 10) + "px")
