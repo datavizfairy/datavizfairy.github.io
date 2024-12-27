@@ -14,6 +14,7 @@ svg.append("text")
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
+    .style("fill", "#ffffff")
     .text("KYOTO, JAPAN | Cherry Blossom Seasonality");
 
 // Append a subtitle
@@ -23,7 +24,7 @@ svg.append("text")
     .attr("text-anchor", "start")
     .style("font-size", "11px")
     .style("font-family", "Montserrat, sans-serif") 
-    .style("fill", "#555")
+    .style("fill", "#ffffff")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
 // Append a group for the chart
@@ -175,7 +176,7 @@ function renderChart(data) {
             flower.transition("pulse")
                 .duration(pulseSpeed)
                 .ease(d3.easeSinInOut)
-                .attr("d", d => sakuraPath(Math.random() * 3 + 5)) // Random size between 15 and 30
+                .attr("d", d => sakuraPath(Math.random() * 5 + 10)) // Random size between 15 and 30
                 .on("end", pulse); // Loop pulsing
         }
 
