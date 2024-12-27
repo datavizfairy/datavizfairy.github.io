@@ -14,7 +14,7 @@ const chart = svg.append("g")
 // Append a title
 svg.append("text")
     .attr("x", margin.left-20) // Align to the left
-    .attr("y", margin.top) // Slightly above the chart
+    .attr("y", margin.top/2) // Slightly above the chart
     .attr("text-anchor", "start")
     .style("font-size", "16px")
     .style("font-weight", "bold")
