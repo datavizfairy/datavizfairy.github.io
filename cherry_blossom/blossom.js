@@ -1,17 +1,27 @@
 // Define margins
-const margin = { top: 50, right: 20, bottom: 40, left: 100 };
+const margin = { top: 50, right: 20, bottom: 60, left: 100 }; // Added bottom margin for the X-axis
 
-// Create SVG
+// Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 800 300");
+    .attr("viewBox", "0 0 800 300"); // Adjust dimensions for visibility
 
 // Append a group with margins
 const chart = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Tooltip setup
+// Append a title
+svg.append("text")
+    .attr("x", margin.left) // Align to the left
+    .attr("y", margin.top / 2) // Slightly above the chart
+    .attr("text-anchor", "start")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .style("fill", "black")
+    .text("Kyoto Cherry Blossom Data");
+
+// Tooltip reference
 const tooltip = d3.select("#tooltip");
 
 // Function to render the chart
@@ -20,31 +30,32 @@ function renderChart(data) {
     const width = 800 - margin.left - margin.right;
     const height = 300 - margin.top - margin.bottom;
 
-    // Clear previous elements
+    // Clear previous content
     chart.selectAll("*").remove();
 
-    // Ensure dates are sorted chronologically
+    // Sort dates chronologically
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
-        .sort((a, b) => new Date(a) - new Date(b)); // Sort using Date objects
+        .sort((a, b) => new Date(a) - new Date(b));
 
     // Scales
     const xScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.Year)) // Year range
+        .domain(d3.extent(data, d => d.Year))
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates) // Use sorted dates as the domain
+        .domain(sortedDates)
         .range([height, 0])
         .padding(0.5);
 
     // Draw axes
     chart.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
+        .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
+        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
+        .selectAll("text") // Optional: Rotate X-axis labels if needed
+        .style("text-anchor", "middle");
 
     chart.append("g")
         .call(d3.axisLeft(yScale).tickFormat(d => {
-            // Format Date objects for display
             const date = new Date(d);
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }));
@@ -55,7 +66,7 @@ function renderChart(data) {
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.Year))
-        .attr("cy", d => yScale(d.FullDate)) // Match Y position with sorted domain
+        .attr("cy", d => yScale(d.FullDate))
         .attr("r", 5)
         .attr("fill", "steelblue")
         .on("mouseover", (event, d) => {
@@ -74,8 +85,8 @@ function renderChart(data) {
 // Load data and render the chart
 d3.csv("./cleaned_data_with_dates.csv").then(csvData => {
     const data = csvData.map(d => ({
-        FullDate: d["Full Date"], // Keep as string for sorting
-        Year: +d.Year, // Ensure Year is numeric
+        FullDate: d["Full Date"],
+        Year: +d.Year,
         ...d
     }));
 
