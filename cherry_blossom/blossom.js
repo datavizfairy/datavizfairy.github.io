@@ -1,6 +1,6 @@
 // Dimensions and margins
 const margin = { top: 20, right: 20, bottom: 30, left: 80 };
-const width = 1200 - margin.left - margin.right;
+const width = 1500 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
 // Create SVG in the container
