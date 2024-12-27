@@ -1,11 +1,11 @@
-// Define margins
-const margin = { top: 50, right: 20, bottom: 60, left: 100 }; // Added bottom margin for the X-axis
+// Define margins with sufficient bottom space
+const margin = { top: 50, right: 20, bottom: 60, left: 100 }; // Increased bottom margin
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
-    .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 800 300"); // Adjust dimensions for visibility
+    .attr("preserveAspectRatio", "xMidYMid meet") // Ensures proportional scaling
+    .attr("viewBox", "0 0 800 400"); // Increased height for more room (400 instead of 300)
 
 // Append a group with margins
 const chart = svg.append("g")
@@ -28,7 +28,7 @@ const tooltip = d3.select("#tooltip");
 function renderChart(data) {
     // Chart dimensions
     const width = 800 - margin.left - margin.right;
-    const height = 300 - margin.top - margin.bottom;
+    const height = 400 - margin.top - margin.bottom;
 
     // Clear previous content
     chart.selectAll("*").remove();
@@ -51,8 +51,8 @@ function renderChart(data) {
     chart.append("g")
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
-        .selectAll("text") // Optional: Rotate X-axis labels if needed
-        .style("text-anchor", "middle");
+        .selectAll("text")
+        .style("text-anchor", "middle"); // Center-align text
 
     chart.append("g")
         .call(d3.axisLeft(yScale).tickFormat(d => {
