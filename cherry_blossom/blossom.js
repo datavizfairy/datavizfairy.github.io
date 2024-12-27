@@ -1,11 +1,11 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 60, right: 40, bottom: 20, left: 80 };
+const margin = { top: 30, right: 40, bottom: 20, left: 80 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 900 500"); // Adjusted height
+    .attr("viewBox", "0 0 1000 500"); // Adjusted height
 
 // Append a title
 svg.append("text")
@@ -58,7 +58,7 @@ function sakuraPath(size) {
 // Function to render the chart
 function renderChart(data) {
     // Chart dimensions
-    const width = 900 - margin.left - margin.right;
+    const width = 1000 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom; // Adjust height
 
     // Clear previous content
