@@ -111,16 +111,14 @@ function renderChart(data) {
         .range([height, 0]) // Match new height
         .padding(0.5);
 
-    // Draw axes
+// Draw X-axis
     chart.append("g")
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
-    chart.append("g")
-        .call(d3.axisLeft(yScale).tickFormat(d => {
-            const date = new Date(d);
-            return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-        }));
+    // Draw Y-axis and gridlines with custom ticks
+    drawYAxis(yScale, chart, height, width);
+    
 
     // Data Points (Flowers)
     const shadesOfPink = ["#FFC0CB", "#FFB6C1", "#FF69B4", "#FF1493", "#DB7093"];
