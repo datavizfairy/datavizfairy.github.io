@@ -22,6 +22,7 @@ svg.append("text")
     .attr("x", 50)
     .attr("y", 50) // Slightly below the title
     .attr("text-anchor", "start")
+    .attr("opacity", 0.8)
     .style("font-size", "11px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
