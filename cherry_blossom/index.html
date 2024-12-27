@@ -7,21 +7,25 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="./blossom.js" defer></script>
     <style>
-        /* Ensure full viewport utilisation */
+        /* Full viewport background with container adjustments */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to bottom, #d3bcf5, #6e5ea3, #124772);
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: linear-gradient(to bottom, #d3bcf5, #6e5ea3, #124772);
         }
 
         #container {
-            width: 100%;
-            height: 100%;
+            width: 90%; /* Ensure the container stays within the screen */
+            height: 70%; /* Prevent the container from overflowing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid transparent; /* For debugging alignment, remove if unnecessary */
         }
 
         .tooltip {
@@ -34,6 +38,11 @@
             font-size: 12px;
             opacity: 0;
             transition: opacity 0.3s;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
