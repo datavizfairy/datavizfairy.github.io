@@ -74,9 +74,7 @@ const yAxis = chart.append("g")
         })
         .tickSize(0)) // Remove tick marks
         .selectAll("text") // Select all text elements
-        .style("fill", "#ffffff");
-
-
+        .style("fill", "#ffffff")
     ); // Properly close the .call method
 
     // Remove the black Y-axis line
