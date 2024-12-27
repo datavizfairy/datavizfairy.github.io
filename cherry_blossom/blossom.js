@@ -59,7 +59,7 @@ function sakuraPath(size) {
 function renderChart(data) {
     // Chart dimensions
     const width = 1000 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom; // Adjust height
+    const height = 500 - margin.top - margin.bottom - 100; // Adjust height
 
     // Clear previous content
     chart.selectAll("*").remove();
