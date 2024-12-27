@@ -133,7 +133,7 @@ function renderChart(data) {
     
 
     // Data Points (Flowers)
-    const shadesOfPink = ["#64BAFD", "#C597EF", "#EA93ED", "#D0CFE9", "#DFAEDE"];
+    const shadesOfPink = ["#AACFFE", "#EDC9EF", "#E068B3", "#DECFE9", "#F4A6DE"];
 
     const flowers = chart.selectAll(".flower")
         .data(data)
