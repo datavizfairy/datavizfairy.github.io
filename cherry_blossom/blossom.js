@@ -53,7 +53,9 @@ function renderChart(data) {
         .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
         .call(d3.axisBottom(xScale).tickFormat(d3.format("d")))
         .selectAll("text")
-        .style("text-anchor", "middle"); // Center-align text
+        .style("text-anchor", "end")
+        .attr("dx", "-5px");
+
 
     chart.append("g")
         .call(d3.axisLeft(yScale).tickFormat(d => {
