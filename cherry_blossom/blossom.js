@@ -1,5 +1,5 @@
 // Dimensions and margins
-const margin = { top: 20, right: 20, bottom: 30, left: 80 };
+const margin = { top: 20, right: 20, bottom: 30, left: 30 };
 const width = 1500 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
