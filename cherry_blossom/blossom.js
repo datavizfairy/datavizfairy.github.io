@@ -1,7 +1,7 @@
 // Dimensions and margins
 const margin = { top: 20, right: 20, bottom: 30, left: 80 };
-const width = 1000 - margin.left - margin.right;
-const height = 1000 - margin.top - margin.bottom;
+const width = 1200 - margin.left - margin.right;
+const height = 700 - margin.top - margin.bottom;
 
 // Create SVG in the container
 const svg = d3.select("#container")
