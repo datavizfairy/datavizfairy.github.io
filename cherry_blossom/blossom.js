@@ -11,6 +11,10 @@ const svg = d3.select("#container")
 svg.append("defs")
     .append("filter")
     .attr("id", "glow")
+    .attr("x", "-50%") // Extend filter region to prevent cutoff
+    .attr("y", "-50%") // Extend filter region
+    .attr("width", "200%") // Double the width of the filter region
+    .attr("height", "200%") // Double the height of the filter region
     .append("feGaussianBlur")
     .attr("stdDeviation", 10) // Controls the blur intensity
     .attr("result", "coloredBlur");
