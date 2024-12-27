@@ -20,7 +20,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", margin.left + 10)
-    .attr("y", margin.top) // Slightly below the title
+    .attr("y", 20) // Slightly below the title
     .attr("text-anchor", "start")
     .style("font-size", "14px")
     .style("font-family", "Trebuchet MS")
