@@ -43,7 +43,7 @@ svg.append("text")
 // Append a title
 svg.append("text")
     .attr("x", 15) // Position relative to the left margin
-    .attr("y", -40) // Position above the chart
+    .attr("y", -35) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -53,7 +53,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 15)
-    .attr("y", -30) // Slightly below the title
+    .attr("y", -25) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
@@ -161,17 +161,18 @@ function renderChart(data) {
         .padding(0.5);
 
 // Draw X-axis
-    chart.append("g")
-        .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
-        .call(d3.axisBottom(xScale)
-        .tickFormat(d3.format("d")) // Keep Year
-        .tickSize(0)) // Remove tick mark
-         .select(".domain") // Select the X-axis line
-    .remove() // Remove the axis line
-     .selectAll("text") // Select all text elements
-        .style("fill", "#ffffff");
-        
+chart.append("g")
+    .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
+    .call(
+        d3.axisBottom(xScale)
+            .tickFormat(d3.format("d")) // Keep Year format
+            .tickSize(0) // Remove tick marks
+    )
+    .selectAll("text") // Select X-axis text
+    .style("fill", "#ffffff"); // Set X-axis text colour to white
 
+// Remove the X-axis line
+chart.select(".domain").remove(); // Select and remove the X-axis line
     // Draw Y-axis and gridlines with custom ticks
     drawYAxis(yScale, chart, height, width);
     
