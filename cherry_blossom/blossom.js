@@ -121,7 +121,7 @@ function sakuraPath(size) {
 svg.append("path")
         .attr("class", "flower")
         .attr("x", 300)
-        .attr("y", 140) 
+        .attr("y", 240) 
         .attr("d", d => sakuraPath(30)) // Initial size
         .attr("fill", "#E068B3");
 
