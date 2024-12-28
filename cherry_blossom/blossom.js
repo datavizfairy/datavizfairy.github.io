@@ -80,9 +80,9 @@ svg
   .attr("target", "_blank")
   .append("image")
   .attr("x", 20)
-  .attr("y", 320)
-  .attr("width", 10)
-  .attr("height", 10)
+  .attr("y", 360)
+  .attr("width", 15)
+  .attr("height", 15)
   .attr(
     "xlink:href",
     "https://raw.githubusercontent.com/datavizfairy/datavizfairy.github.io/refs/heads/main/cherry_blossom/Logo.svg"
