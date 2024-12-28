@@ -147,43 +147,25 @@ function renderChart(data) {
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
         .sort((a, b) => new Date(a) - new Date(b));
 
-     // Scales
-    const xScale = d3.scaleLinear()
-        .domain(d3.extent(validData, d => d.Year))
-        .range([0, width]);
+   // Calculate the polynomial regression
+const polynomialRegression = d3.regressionPoly()
+    .x(d => d.Year) // x-axis: Year
+    .y(d => new Date(d.FullDate).getTime()) // y-axis: convert FullDate to timestamp
+    .order(3); // Set polynomial order (3 = cubic regression)
 
-    const yScale = d3.scalePoint()
-        .domain(validData.map(d => d.FullDate))
-        .range([height, 0])
-        .padding(0.5);
+// Generate regression data
+const regressionData = polynomialRegression(data);
 
-    // Generate trendline data
-    const regression = calculatePolynomialTrendLine(
-        validData,
-        d => d.Year,
-        d => yScale(new Date(d.FullDate))
+// Render the trendline
+chart.append("path")
+    .datum(regressionData)
+    .attr("fill", "none")
+    .attr("stroke", "#ff1493") // Trendline color
+    .attr("stroke-width", 2)
+    .attr("d", d3.line()
+        .x(d => xScale(d[0])) // Map x to Year
+        .y(d => yScale(new Date(d[1]))) // Map y to FullDate using yScale
     );
-
-    const trendlineData = d3.range(
-        d3.min(validData, d => d.Year),
-        d3.max(validData, d => d.Year),
-        1
-    ).map(x => ({
-        x,
-        y: regression.a * x ** 2 + regression.b * x + regression.c
-    }));
-
-    // Draw the trendline
-    chart.append("path")
-        .datum(trendlineData)
-        .attr("fill", "none")
-        .attr("stroke", "#ff1493") // Bright pink trendline
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(d => xScale(d.x))
-            .y(d => d.y)
-        );
-
 
     
 // Draw X-axis
