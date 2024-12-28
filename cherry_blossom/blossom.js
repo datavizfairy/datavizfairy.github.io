@@ -1,5 +1,5 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 150, right: 30, bottom: 20, left: 60 };
+const margin = { top: 80, right: 30, bottom: 20, left: 60 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
