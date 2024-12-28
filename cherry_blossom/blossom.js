@@ -5,7 +5,7 @@ const margin = { top: 100, right: 30, bottom: 20, left: 60 };
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 1000 500"); // Adjusted height
+    .attr("viewBox", "0 -50 1000 500"); // Add 50px padding above 
 
 // Add a filter for the glowing effect
 svg.append("defs")
