@@ -123,6 +123,13 @@ function sakuraPath(size) {
     return path;
 }
 
+// Add flower legend
+svg.append("path")
+        .attr("class", "flower")
+        .attr("x", 18)
+        .attr("y", 20) 
+        .attr("d", d => sakuraPath(20)) // Initial size
+        .attr("fill", "#E068B3");
 
 // Draw Y-axis gridlines and custom ticks
 function drawYAxis(yScale, chart, height, width) {
