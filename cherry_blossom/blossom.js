@@ -33,7 +33,7 @@ svg.append("text")
     .attr("x", 18)
     .attr("y", -60) // Slightly below the title
     .attr("text-anchor", "start")
-    .style("font-size", "16px")
+    .style("font-size", "20px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
     .text("京都");
