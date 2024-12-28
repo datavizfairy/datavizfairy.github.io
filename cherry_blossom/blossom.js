@@ -1,4 +1,4 @@
-ne// Define margins with extra top space for title and subtitle
+// Define margins with extra top space for title and subtitle
 const margin = { top: 60, right: 30, bottom: 180, left: 50 };
 
 // Create the SVG with proportional scaling
