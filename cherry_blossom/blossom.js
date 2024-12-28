@@ -52,7 +52,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 18)
-    .attr("y", -15) // Slightly below the title
+    .attr("y", -20) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
@@ -87,8 +87,6 @@ function sakuraPath(size) {
     path += "Z"; // Close the shape
     return path;
 }
-
-
 
 
 // Draw Y-axis gridlines and custom ticks
@@ -134,101 +132,7 @@ yAxis.selectAll("text")
         .attr("opacity", 0.4)
 }
 
-// Function to calculate polynomial coefficients (2nd order)
-function calculatePolynomial(data, xAccessor, yAccessor) {
-    const n = data.length;
 
-    let sumX = 0, sumY = 0, sumXX = 0, sumXY = 0, sumXXX = 0, sumXXXX = 0, sumXXY = 0;
-
-    // Calculate sums
-    data.forEach(d => {
-        const x = xAccessor(d);
-        const y = yAccessor(d);
-        sumX += x;
-        sumY += y;
-        sumXX += x * x;
-        sumXY += x * y;
-        sumXXX += x * x * x;
-        sumXXXX += x * x * x * x;
-        sumXXY += x * x * y;
-    });
-
-    // Solve the system of equations
-    const matrix = [
-        [n, sumX, sumXX],
-        [sumX, sumXX, sumXXX],
-        [sumXX, sumXXX, sumXXXX]
-    ];
-
-    const rhs = [sumY, sumXY, sumXXY]; // Right-hand side of equations
-
-    // Use Gaussian elimination or another method to solve for coefficients
-    const coefficients = gaussianElimination(matrix, rhs);
-
-    return coefficients; // [a, b, c] for y = ax^2 + bx + c
-}
-
-// Function to solve a system of linear equations using Gaussian elimination
-function gaussianElimination(matrix, rhs) {
-    const n = rhs.length;
-    for (let i = 0; i < n; i++) {
-        // Make the diagonal element 1
-        const factor = matrix[i][i];
-        for (let j = 0; j < n; j++) matrix[i][j] /= factor;
-        rhs[i] /= factor;
-
-        // Eliminate column i for all rows below
-        for (let k = i + 1; k < n; k++) {
-            const factor = matrix[k][i];
-            for (let j = 0; j < n; j++) matrix[k][j] -= factor * matrix[i][j];
-            rhs[k] -= factor * rhs[i];
-        }
-    }
-
-    // Back substitution
-    const result = Array(n).fill(0);
-    for (let i = n - 1; i >= 0; i--) {
-        result[i] = rhs[i];
-        for (let j = i + 1; j < n; j++) result[i] -= matrix[i][j] * result[j];
-    }
-    return result;
-}
-
-// Generate trendline data points
-function generateTrendlineData(coefficients, xDomain, step = 1) {
-    const [c, b, a] = coefficients; // For y = ax^2 + bx + c
-    const trendlineData = [];
-    for (let x = xDomain[0]; x <= xDomain[1]; x += step) {
-        const y = a * x * x + b * x + c;
-        trendlineData.push({ x, y });
-    }
-    return trendlineData;
-}
-
-// Add trendline to the chart
-function addTrendline(chart, trendlineData, xScale, yScale) {
-    chart.append("path")
-        .datum(trendlineData)
-        .attr("fill", "none")
-        .attr("stroke", "#ff1493") // Trendline color
-        .attr("stroke-width", 2)
-        .attr("d", d3.line()
-            .x(d => xScale(d.x))
-            .y(d => yScale(d.y))
-        );
-}
-
-// Add trendline to the chart
-function renderPolynomialTrendline(data, xScale, yScale) {
-    // Calculate coefficients for the polynomial trendline
-    const coefficients = calculatePolynomial(data, d => d.Year, d => new Date(d.FullDate).getTime());
-
-    // Generate trendline data points
-    const trendlineData = generateTrendlineData(coefficients, d3.extent(data, d => d.Year));
-
-    // Add trendline to the chart
-    addTrendline(chart, trendlineData, xScale, yScale);
-}
 
 
 
@@ -245,7 +149,7 @@ function renderChart(data) {
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
         .sort((a, b) => new Date(a) - new Date(b));
 
-    // Define scales
+    // Scales
     const xScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.Year))
         .range([0, width]);
@@ -255,10 +159,6 @@ function renderChart(data) {
         .range([height, 0]) // Match new height
         .padding(0.5);
 
-    // Add the polynomial trendline
-    renderPolynomialTrendline(data, xScale, yScale);
-
-    
 // Draw X-axis
 chart.append("g")
     .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
