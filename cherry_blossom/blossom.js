@@ -64,7 +64,7 @@ svg.append("text")
 // Append Credits 
 svg.append("text")
     .attr("x", 180)
-    .attr("y", 370) 
+    .attr("y", 600) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "8px")
