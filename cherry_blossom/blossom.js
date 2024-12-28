@@ -89,7 +89,16 @@ function sakuraPath(size) {
 }
 
 
+// Function to calculate polynomial trendline coefficients
+function calculatePolynomialTrendLine(data, xAccessor, yAccessor) {
+    const xValues = data.map(xAccessor);
+    const yValues = data.map(yAccessor);
 
+    const matrix = xValues.map(x => [x * x, x, 1]);
+    const yVector = math.matrix(yValues);
+
+    const xMatrix = math.matrix(matrix);
+    const Xt = math.transpose(xMatrix);
     const XtX = math.multiply(Xt, xMatrix);
     const XtY = math.multiply(Xt, yVector);
     const XtX_inv = math.inv(XtX);
@@ -101,6 +110,7 @@ function sakuraPath(size) {
         c: coefficients.get([2])
     };
 }
+
 
 
 // Draw Y-axis gridlines and custom ticks
