@@ -80,7 +80,7 @@ svg
   .attr("target", "_blank")
   .append("image")
   .attr("x", 20)
-  .attr("y", 360)
+  .attr("y", 359)
   .attr("width", 15)
   .attr("height", 15)
   .attr(
@@ -95,7 +95,7 @@ const link = svg.append("a")
     .attr("rel", "noopener noreferrer"); // For security
 
 link.append("text")
-    .attr("x", 50) // Position relative to the left margin
+    .attr("x", 45) // Position relative to the left margin
     .attr("y", 370) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "9px")
