@@ -87,6 +87,18 @@ svg
     "xlink:href",
     "https://raw.githubusercontent.com/datavizfairy/datavizfairy.github.io/refs/heads/main/cherry_blossom/Logo.svg"
   );
+
+// DATAVIZFAIRY Hyperlink
+.hyperlink {
+    text-decoration: none; /* Remove underline by default */
+    transition: color 0.3s, text-decoration 0.3s; /* Smooth transitions */
+}
+
+.hyperlink:hover {
+    fill: #f4a6de; /* Change text colour on hover */
+    text-decoration: underline; /* Show underline only on hover */
+}
+
        
 
 // Append a group for the chart
