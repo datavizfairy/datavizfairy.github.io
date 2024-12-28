@@ -70,7 +70,7 @@ svg.append("text")
     .style("font-size", "9px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
-    .text("Designed by Shreya Arya.");
+    .text("Designed by Shreya Arya.‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Data Source: Yasuyuki Aono, Osaka Prefecture University");
 
        
 // Append Credits (Source)
