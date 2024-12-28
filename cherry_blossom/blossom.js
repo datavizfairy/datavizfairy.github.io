@@ -30,11 +30,11 @@ svg.append("circle")
 
 // Append Kanji
 svg.append("text")
-    .attr("x", 0)
-    .attr("y", -50) // Slightly below the title
+    .attr("x", 15)
+    .attr("y", -60) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
-    .style("font-size", "11px")
+    .style("font-size", "16px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
     .text("京都");
@@ -42,8 +42,8 @@ svg.append("text")
 
 // Append a title
 svg.append("text")
-    .attr("x", 28) // Position relative to the left margin
-    .attr("y", -50) // Position above the chart
+    .attr("x", 15) // Position relative to the left margin
+    .attr("y", -40) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -52,8 +52,8 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", 35)
-    .attr("y", -50) // Slightly below the title
+    .attr("x", 15)
+    .attr("y", -30) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
