@@ -1,4 +1,4 @@
-// Define margins with extra top space for title and subtitle
+ne// Define margins with extra top space for title and subtitle
 const margin = { top: 60, right: 30, bottom: 180, left: 50 };
 
 // Create the SVG with proportional scaling
@@ -61,17 +61,39 @@ svg.append("text")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
 
-// Append Credits
+// Append Credits (Designed by)
 svg.append("text")
     .attr("x", 18)
     .attr("y", 400) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
-    .style("font-size", "11px")
+    .style("font-size", "9px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
-    .text("Designed by Shreya Arya.        Data Source: Yasuyuki Aono, Osaka Prefecture University          Inspired by The Economist.");
+    .text("Designed by Shreya Arya.");
 
+       
+// Append Credits (Source)
+svg.append("text")
+    .attr("x", 200)
+    .attr("y", 400) 
+    .attr("text-anchor", "start")
+    .attr("opacity", 0.8)
+    .style("font-size", "9px")
+    .style("font-family", "Montserrat, sans-serif") 
+    .style("fill", "#ffffff")
+    .text("Data Source: Yasuyuki Aono, Osaka Prefecture University");
+
+// Append Credits (Inspired)
+svg.append("text")
+    .attr("x", 450)
+    .attr("y", 400) 
+    .attr("text-anchor", "start")
+    .attr("opacity", 0.8)
+    .style("font-size", "9px")
+    .style("font-family", "Montserrat, sans-serif") 
+    .style("fill", "#ffffff")
+    .text("Inspired by The Economist.");
 
 // Append a group for the chart
 const chart = svg.append("g")
@@ -173,13 +195,13 @@ function renderChart(data) {
         .padding(0.5);
 
 // Add an x-axis reference band
-    const xMin = 1900, xMax = 2000;
+    const xMin = 1900, xMax = 2010;
     chart.append("rect")
         .attr("x", xScale(xMin))
         .attr("y", 0)
         .attr("width", xScale(xMax) - xScale(xMin))
         .attr("height", height)
-        .attr("fill", "#485578")
+        .attr("fill", "#343f5d")
         .attr("opacity", 0.3);
 
     
