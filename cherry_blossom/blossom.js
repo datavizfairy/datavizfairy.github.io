@@ -136,9 +136,8 @@ function sakuraPath(size) {
 // Add flower legend
 svg.append("path")
         .attr("class", "flower")
-        .attr("x", 300)
-        .attr("y", 240) 
         .attr("d", d => sakuraPath(30)) // Initial size
+        .attr("transform", `translate(40,10`);
         .attr("fill", "#E068B3");
 
 // Draw Y-axis gridlines and custom ticks
