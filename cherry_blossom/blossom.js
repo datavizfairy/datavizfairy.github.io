@@ -160,11 +160,16 @@ function renderChart(data) {
         .padding(0.5);
 
 // Generate trendline data
-    const regression = calculatePolynomialTrendLine(data, d => d.Year, d => yScale(d.FullDate));
-    const trendlineData = d3.range(d3.min(data, d => d.Year), d3.max(data, d => d.Year), 1).map(x => ({
+    const regression = calculatePolynomialTrendLine(data, d => d.Year, d => d.FullDateNumeric);
+    const trendlineData = d3.range(
+        d3.min(data, d => d.Year),
+        d3.max(data, d => d.Year),
+        1
+    ).map(x => ({
         x,
         y: regression.a * x ** 2 + regression.b * x + regression.c
     }));
+
 
     
 // Draw X-axis
