@@ -85,7 +85,7 @@ svg
   .attr("height", 20)
   .attr(
     "xlink:href",
-    "./logo.svg"
+    "https://raw.githubusercontent.com/datavizfairy/datavizfairy.github.io/refs/heads/main/cherry_blossom/Logo.svg"
   );
        
 
