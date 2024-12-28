@@ -1,11 +1,11 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 60, right: 30, bottom: 80, left: 60 };
+const margin = { top: 60, right: 30, bottom: 100, left: 60 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 -60 1000 500"); // Add 50px padding above 
+    .attr("viewBox", "0 -70 1000 500"); // Add 50px padding above 
 
 // Add a filter for the glowing effect
 svg.append("defs")
@@ -40,7 +40,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 40)
-    .attr("y", -5) // Slightly below the title
+    .attr("y", 0) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
