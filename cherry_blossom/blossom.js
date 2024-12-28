@@ -100,7 +100,6 @@ link.append("text")
     .attr("text-anchor", "start")
     .style("font-size", "9px")
     .style("font-family", "Montserrat, sans-serif")
-    .style("fill", "#ffffff") // Default text colour
     .attr("class", "hyperlink") // Add a class for CSS styling
     .text("D A T A V I Z F A I R Y");
 
