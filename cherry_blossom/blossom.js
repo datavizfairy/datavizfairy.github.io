@@ -89,15 +89,20 @@ svg
   );
 
 // DATAVIZFAIRY Hyperlink
-.hyperlink {
-    text-decoration: none; /* Remove underline by default */
-    transition: color 0.3s, text-decoration 0.3s; /* Smooth transitions */
-}
+const link = svg.append("a")
+    .attr("href", "https://example.com") // URL for the hyperlink
+    .attr("target", "_blank") // Open link in a new tab
+    .attr("rel", "noopener noreferrer"); // For security
 
-.hyperlink:hover {
-    fill: #f4a6de; /* Change text colour on hover */
-    text-decoration: underline; /* Show underline only on hover */
-}
+link.append("text")
+    .attr("x", 50) // Position relative to the left margin
+    .attr("y", 360) // Position above the chart
+    .attr("text-anchor", "start")
+    .style("font-size", "18px")
+    .style("font-family", "Montserrat, sans-serif")
+    .style("fill", "#ffffff") // Default text colour
+    .attr("class", "hyperlink") // Add a class for CSS styling
+    .text("D A T A V I Z F A I R Y");
 
        
 
