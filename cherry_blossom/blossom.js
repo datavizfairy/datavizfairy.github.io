@@ -72,6 +72,21 @@ svg.append("text")
     .style("fill", "#ffffff")
     .text("Designed by Shreya Arya.‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‎Data Source: Yasuyuki Aono, Osaka Prefecture University‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ Inspired by The Economist.‎‏‏‎‎");
 
+
+// Logo
+svg
+  .append("a")
+  .attr("href", "https://datavizfairy.co.uk/")
+  .attr("target", "_blank")
+  .append("image")
+  .attr("x", 20)
+  .attr("y", 370)
+  .attr("width", 20)
+  .attr("height", 20)
+  .attr(
+    "xlink:href",
+    "./logo.svg"
+  );
        
 
 // Append a group for the chart
