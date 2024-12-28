@@ -5,32 +5,32 @@ const margin = { top: 60, right: 30, bottom: 170, left: 50 };
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 -100 1000 500"); // Add 50px padding above 
+    .attr("viewBox", "0 -100 1000 500");
 
 // Add a filter for the glowing effect
 svg.append("defs")
     .append("filter")
     .attr("id", "glow")
-    .attr("x", "-50%") // Extend filter region to prevent cutoff
-    .attr("y", "-50%") // Extend filter region
-    .attr("width", "200%") // Double the width of the filter region
-    .attr("height", "200%") // Double the height of the filter region
+    .attr("x", "-50%")
+    .attr("y", "-50%")
+    .attr("width", "200%")
+    .attr("height", "200%")
     .append("feGaussianBlur")
-    .attr("stdDeviation", 10) // Controls the blur intensity
+    .attr("stdDeviation", 10)
     .attr("result", "coloredBlur");
 
 // Add the glowing moon
 svg.append("circle")
-    .attr("cx", 960) // X position near the top-right
-    .attr("cy", -30)  // Y position
-    .attr("r", 50)   // Radius of the moon
-    .attr("fill", "#fdfd96") // Soft yellow for the moon
-    .style("filter", "url(#glow)"); // Apply the glow effect
+    .attr("cx", 960)
+    .attr("cy", -30)
+    .attr("r", 50)
+    .attr("fill", "#fdfd96")
+    .style("filter", "url(#glow)");
 
 // Append Kanji
 svg.append("text")
     .attr("x", 10)
-    .attr("y", -65) // Position for the Kanji
+    .attr("y", -65)
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "16px")
@@ -40,8 +40,8 @@ svg.append("text")
 
 // Append a title
 svg.append("text")
-    .attr("x", 10) // Position relative to the left margin
-    .attr("y", -40) // Position above the chart
+    .attr("x", 10)
+    .attr("y", -40)
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -51,7 +51,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 10)
-    .attr("y", -20) // Position for the subtitle
+    .attr("y", -20)
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
@@ -85,6 +85,37 @@ function sakuraPath(size) {
     }
     path += "Z";
     return path;
+}
+
+// Function to calculate polynomial trendline
+function calculateTrendline(data, degree) {
+    const x = data.map(d => d.Year);
+    const y = data.map(d => new Date(d.FullDate).getTime());
+
+    const coefficients = regression.polynomial(
+        x.map((xi, i) => [xi, y[i]]),
+        { order: degree }
+    ).equation;
+
+    const trendline = x.map(xi => ({
+        x: xi,
+        y: coefficients.reduce((sum, coef, i) => sum + coef * Math.pow(xi, i), 0)
+    }));
+
+    return trendline;
+}
+
+// Draw the trendline
+function drawTrendline(chart, trendline, xScale, yScale) {
+    chart.append("path")
+        .datum(trendline)
+        .attr("fill", "none")
+        .attr("stroke", "#ffd700") // Gold color for trendline
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(d => xScale(d.x))
+            .y(d => yScale(d.y))
+        );
 }
 
 // Draw Y-axis gridlines and custom ticks
@@ -136,7 +167,11 @@ function renderChart(data) {
 
     chart.append("g")
         .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(xScale).tickFormat(d3.format("d")).tickSize(0))
+        .call(
+            d3.axisBottom(xScale)
+                .tickFormat(d3.format("d"))
+                .tickSize(0)
+        )
         .selectAll("text")
         .style("fill", "#ffffff");
 
@@ -163,37 +198,8 @@ function renderChart(data) {
         })
         .on("mouseout", () => tooltip.style("opacity", 0));
 
-    flowers.each(function(d, i) {
-        const flower = d3.select(this);
-        const rotationSpeed = Math.random() * 4000 + 50000;
-        const pulseSpeed = Math.random() * 2000 + 1000;
-
-        function rotate() {
-            flower.transition("rotate")
-                .duration(rotationSpeed)
-                .ease(d3.easeLinear)
-                .attrTween("transform", function() {
-                    const centerX = xScale(d.Year);
-                    const centerY = yScale(d.FullDate);
-                    return function(t) {
-                        const angle = 360 * t;
-                        return `translate(${centerX},${centerY}) rotate(${angle})`;
-                    };
-                })
-                .on("end", rotate);
-        }
-
-        function pulse() {
-            flower.transition("pulse")
-                .duration(pulseSpeed)
-                .ease(d3.easeSinInOut)
-                .attr("d", d => sakuraPath(Math.random() * 20 + 10))
-                .on("end", pulse);
-        }
-
-        rotate();
-        pulse();
-    });
+    const trendline = calculateTrendline(data, 2); // Polynomial trendline of degree 2
+    drawTrendline(chart, trendline, xScale, yScale);
 }
 
 // Load data and render the chart
