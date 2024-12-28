@@ -1,11 +1,11 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 60, right: 30, bottom: 100, left: 60 };
+const margin = { top: 60, right: 30, bottom: 110, left: 50 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 -70 1000 500"); // Add 50px padding above 
+    .attr("viewBox", "0 -85 1000 500"); // Add 50px padding above 
 
 // Add a filter for the glowing effect
 svg.append("defs")
@@ -22,14 +22,14 @@ svg.append("defs")
 // Add the glowing moon
 svg.append("circle")
     .attr("cx", 970) // X position near the top-right (adjust as needed)
-    .attr("cy", 5)  // Y position
+    .attr("cy", 0)  // Y position
     .attr("r", 50)   // Radius of the moon
     .attr("fill", "#fdfd96") // Soft yellow for the moon
     .style("filter", "url(#glow)"); // Apply the glow effect
 
 // Append a title
 svg.append("text")
-    .attr("x", 40) // Position relative to the left margin
+    .attr("x", 28) // Position relative to the left margin
     .attr("y", -20) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
@@ -39,7 +39,7 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", 40)
+    .attr("x", 35)
     .attr("y", 0) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
