@@ -63,7 +63,7 @@ svg.append("text")
 
 // Append a group for the chart
 const chart = svg.append("g")
-    .attr("transform", translate(${margin.left},${margin.top}));
+    .attr("transform", `translate(${margin.left},${margin.top})`); // Correctly use backticks for string interpolation
 
 // Tooltip reference
 const tooltip = d3.select("#tooltip");
