@@ -47,7 +47,7 @@ svg.append("text")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif")
     .style("fill", "#ffffff")
-    .html(`<tspan style="font-weight: bold;">KYOTO, JAPAN</tspan> | Cherry Blossom Seasonality`);
+    .html(`<tspan style="font-weight: medium;">KYOTO, JAPAN</tspan> | Cherry Blossom Seasonality`);
 
 // Append a subtitle
 svg.append("text")
@@ -63,7 +63,7 @@ svg.append("text")
 
 // Append Credits 
 svg.append("text")
-    .attr("x", 100)
+    .attr("x", 180)
     .attr("y", 370) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
