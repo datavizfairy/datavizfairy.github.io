@@ -21,8 +21,8 @@ svg.append("defs")
 
 // Add the glowing moon
 svg.append("circle")
-    .attr("cx", 970) // X position near the top-right (adjust as needed)
-    .attr("cy", 0)  // Y position
+    .attr("cx", 960) // X position near the top-right (adjust as needed)
+    .attr("cy", -10)  // Y position
     .attr("r", 50)   // Radius of the moon
     .attr("fill", "#fdfd96") // Soft yellow for the moon
     .style("filter", "url(#glow)"); // Apply the glow effect
@@ -30,8 +30,8 @@ svg.append("circle")
 
 // Append Kanji
 svg.append("text")
-    .attr("x", 20)
-    .attr("y", 0) // Slightly below the title
+    .attr("x", 0)
+    .attr("y", -50) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
@@ -43,7 +43,7 @@ svg.append("text")
 // Append a title
 svg.append("text")
     .attr("x", 28) // Position relative to the left margin
-    .attr("y", -20) // Position above the chart
+    .attr("y", -50) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -53,7 +53,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 35)
-    .attr("y", 0) // Slightly below the title
+    .attr("y", -50) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
