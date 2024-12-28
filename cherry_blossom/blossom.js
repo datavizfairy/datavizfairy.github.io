@@ -89,28 +89,6 @@ function sakuraPath(size) {
 }
 
 
-// Function to calculate polynomial trendline coefficients
-function calculatePolynomialTrendLine(data, xAccessor, yAccessor) {
-    const xValues = data.map(xAccessor);
-    const yValues = data.map(yAccessor);
-
-    const matrix = xValues.map(x => [x * x, x, 1]);
-    const yVector = math.matrix(yValues);
-
-    const xMatrix = math.matrix(matrix);
-    const Xt = math.transpose(xMatrix);
-    const XtX = math.multiply(Xt, xMatrix);
-    const XtY = math.multiply(Xt, yVector);
-    const XtX_inv = math.inv(XtX);
-    const coefficients = math.multiply(XtX_inv, XtY);
-
-    return {
-        a: coefficients.get([0]),
-        b: coefficients.get([1]),
-        c: coefficients.get([2])
-    };
-}
-
 
 
 // Draw Y-axis gridlines and custom ticks
@@ -169,26 +147,42 @@ function renderChart(data) {
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
         .sort((a, b) => new Date(a) - new Date(b));
 
-    // Scales
+     // Scales
     const xScale = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.Year))
+        .domain(d3.extent(validData, d => d.Year))
         .range([0, width]);
 
     const yScale = d3.scalePoint()
-        .domain(sortedDates)
-        .range([height, 0]) // Match new height
+        .domain(validData.map(d => d.FullDate))
+        .range([height, 0])
         .padding(0.5);
 
-// Generate trendline data
-    const regression = calculatePolynomialTrendLine(data, d => d.Year, d => d.FullDateNumeric);
+    // Generate trendline data
+    const regression = calculatePolynomialTrendLine(
+        validData,
+        d => d.Year,
+        d => yScale(new Date(d.FullDate))
+    );
+
     const trendlineData = d3.range(
-        d3.min(data, d => d.Year),
-        d3.max(data, d => d.Year),
+        d3.min(validData, d => d.Year),
+        d3.max(validData, d => d.Year),
         1
     ).map(x => ({
         x,
         y: regression.a * x ** 2 + regression.b * x + regression.c
     }));
+
+    // Draw the trendline
+    chart.append("path")
+        .datum(trendlineData)
+        .attr("fill", "none")
+        .attr("stroke", "#ff1493") // Bright pink trendline
+        .attr("stroke-width", 2)
+        .attr("d", d3.line()
+            .x(d => xScale(d.x))
+            .y(d => d.y)
+        );
 
 
     
