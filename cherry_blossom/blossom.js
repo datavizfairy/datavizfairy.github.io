@@ -172,6 +172,18 @@ function renderChart(data) {
         .range([height, 0]) // Match new height
         .padding(0.5);
 
+// Add an x-axis reference band
+    const xMin = 1940, xMax = 2000;
+    chart.append("rect")
+        .attr("x", xScale(xMin))
+        .attr("y", 0)
+        .attr("width", xScale(xMax) - xScale(xMin))
+        .attr("height", height)
+        .attr("fill", "#ffcccb")
+        .attr("opacity", 0.3);
+
+    
+
 // Draw X-axis
 chart.append("g")
     .attr("transform", `translate(0,${height})`) // Position X-axis at the bottom
