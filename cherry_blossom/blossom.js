@@ -1,5 +1,5 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 60, right: 30, bottom: 110, left: 50 };
+const margin = { top: 60, right: 30, bottom: 180, left: 50 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
@@ -30,10 +30,9 @@ svg.append("circle")
 
 // Append Kanji
 svg.append("text")
-    .attr("x", 15)
+    .attr("x", 18)
     .attr("y", -60) // Slightly below the title
     .attr("text-anchor", "start")
-    .attr("opacity", 0.8)
     .style("font-size", "16px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
@@ -42,7 +41,7 @@ svg.append("text")
 
 // Append a title
 svg.append("text")
-    .attr("x", 15) // Position relative to the left margin
+    .attr("x", 18) // Position relative to the left margin
     .attr("y", -35) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
@@ -52,8 +51,8 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", 15)
-    .attr("y", -25) // Slightly below the title
+    .attr("x", 18)
+    .attr("y", -20) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
