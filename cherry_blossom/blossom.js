@@ -128,7 +128,7 @@ svg.append("path")
         .attr("class", "flower")
         .attr("x", 30)
         .attr("y", 70) 
-        .attr("d", d => sakuraPath(20)) // Initial size
+        .attr("d", d => sakuraPath(30)) // Initial size
         .attr("fill", "#E068B3");
 
 // Draw Y-axis gridlines and custom ticks
