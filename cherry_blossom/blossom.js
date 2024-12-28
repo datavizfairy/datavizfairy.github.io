@@ -132,7 +132,31 @@ yAxis.selectAll("text")
         .attr("opacity", 0.4)
 }
 
+// Function to calculate polynomial trendline coefficients
+function calculatePolynomialTrendLine(data, xAccessor, yAccessor) {
+    const xValues = data.map(xAccessor);
+    const yValues = data.map(yAccessor);
 
+    // Prepare the design matrix for a second-degree polynomial
+    const matrix = xValues.map(x => [x * x, x, 1]); // [x^2, x, 1]
+
+    // Use math.js to solve for coefficients
+    const yVector = math.matrix(yValues); // Convert to matrix for solving
+    const xMatrix = math.matrix(matrix);
+
+    // Solve using least squares: (X'X)^-1 X'Y
+    const Xt = math.transpose(xMatrix); // Transpose of X
+    const XtX = math.multiply(Xt, xMatrix); // X'X
+    const XtY = math.multiply(Xt, yVector); // X'Y
+    const XtX_inv = math.inv(XtX); // (X'X)^-1
+    const coefficients = math.multiply(XtX_inv, XtY); // Coefficients [a, b, c]
+
+    return {
+        a: coefficients.get([0]), // x^2 coefficient
+        b: coefficients.get([1]), // x coefficient
+        c: coefficients.get([2])  // constant term
+    };
+}
 
 
 
