@@ -29,7 +29,7 @@ svg.append("circle")
 
 // Append a title
 svg.append("text")
-    .attr("x", 50) // Position relative to the left margin
+    .attr("x", 45) // Position relative to the left margin
     .attr("y", -25) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
@@ -39,7 +39,7 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", 50)
+    .attr("x", 45)
     .attr("y", 0) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
