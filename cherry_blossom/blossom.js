@@ -5,7 +5,7 @@ const margin = { top: 60, right: 30, bottom: 110, left: 50 };
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 -85 1000 500"); // Add 50px padding above 
+    .attr("viewBox", "0 -100 1000 500"); // Add 50px padding above 
 
 // Add a filter for the glowing effect
 svg.append("defs")
@@ -31,7 +31,7 @@ svg.append("circle")
 // Append Kanji
 svg.append("text")
     .attr("x", 15)
-    .attr("y", -60) // Slightly below the title
+    .attr("y", -65) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "16px")
@@ -43,7 +43,7 @@ svg.append("text")
 // Append a title
 svg.append("text")
     .attr("x", 15) // Position relative to the left margin
-    .attr("y", -35) // Position above the chart
+    .attr("y", -40) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -53,7 +53,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 15)
-    .attr("y", -25) // Slightly below the title
+    .attr("y", -20) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
