@@ -21,7 +21,7 @@ svg.append("defs")
 
 // Add the glowing moon
 svg.append("circle")
-    .attr("cx", 960) // X position near the top-right (adjust as needed)
+    .attr("cx", 930) // X position near the top-right (adjust as needed)
     .attr("cy", -30)  // Y position
     .attr("r", 50)   // Radius of the moon
     .attr("fill", "#fdfd96") // Soft yellow for the moon
@@ -75,7 +75,7 @@ svg.append("text")
        
 // Append Credits (Source)
 svg.append("text")
-    .attr("x", 200)
+    .attr("x", 100)
     .attr("y", 370) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
