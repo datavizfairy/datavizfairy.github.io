@@ -245,7 +245,18 @@ function renderChart(data) {
     const sortedDates = [...new Set(data.map(d => d.FullDate))]
         .sort((a, b) => new Date(a) - new Date(b));
 
-renderPolynomialTrendline(data, xScale, yScale);
+    // Define scales
+    const xScale = d3.scaleLinear()
+        .domain(d3.extent(data, d => d.Year))
+        .range([0, width]);
+
+    const yScale = d3.scalePoint()
+        .domain(sortedDates)
+        .range([height, 0]) // Match new height
+        .padding(0.5);
+
+    // Add the polynomial trendline
+    renderPolynomialTrendline(data, xScale, yScale);
 
     
 // Draw X-axis
