@@ -22,7 +22,7 @@ svg.append("defs")
 // Add the glowing moon
 svg.append("circle")
     .attr("cx", 970) // X position near the top-right (adjust as needed)
-    .attr("cy", 30)  // Y position
+    .attr("cy", 5)  // Y position
     .attr("r", 50)   // Radius of the moon
     .attr("fill", "#fdfd96") // Soft yellow for the moon
     .style("filter", "url(#glow)"); // Apply the glow effect
