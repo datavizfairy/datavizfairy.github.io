@@ -63,7 +63,7 @@ svg.append("text")
 
 // Append Credits 
 svg.append("text")
-    .attr("x", 600)
+    .attr("x", 350)
     .attr("y", 370) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
