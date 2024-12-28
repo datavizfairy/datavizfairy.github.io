@@ -39,15 +39,15 @@ svg.append("text")
     .text("京都");
 
 
-// Append a title
+// Append a title with bold "KYOTO, JAPAN"
 svg.append("text")
     .attr("x", 18) // Position relative to the left margin
     .attr("y", -35) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
-    .style("font-family", "Montserrat, sans-serif") 
+    .style("font-family", "Montserrat, sans-serif")
     .style("fill", "#ffffff")
-    .text("KYOTO, JAPAN | Cherry Blossom Seasonality");
+    .html(`<tspan style="font-weight: bold;">KYOTO, JAPAN</tspan> | Cherry Blossom Seasonality`);
 
 // Append a subtitle
 svg.append("text")
