@@ -5,7 +5,7 @@ const margin = { top: 60, right: 30, bottom: 80, left: 60 };
 const svg = d3.select("#container")
     .append("svg")
     .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 -55 1000 500"); // Add 50px padding above 
+    .attr("viewBox", "0 -60 1000 500"); // Add 50px padding above 
 
 // Add a filter for the glowing effect
 svg.append("defs")
@@ -29,7 +29,7 @@ svg.append("circle")
 
 // Append a title
 svg.append("text")
-    .attr("x", 45) // Position relative to the left margin
+    .attr("x", 40) // Position relative to the left margin
     .attr("y", -20) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
@@ -39,7 +39,7 @@ svg.append("text")
 
 // Append a subtitle
 svg.append("text")
-    .attr("x", 45)
+    .attr("x", 40)
     .attr("y", -5) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
