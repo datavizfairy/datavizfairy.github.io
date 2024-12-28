@@ -90,7 +90,7 @@ svg
 
 // DATAVIZFAIRY Hyperlink
 const link = svg.append("a")
-    .attr("href", "https://example.com") // URL for the hyperlink
+    .attr("href", "https://datavizfairy.co.uk/")
     .attr("target", "_blank") // Open link in a new tab
     .attr("rel", "noopener noreferrer"); // For security
 
