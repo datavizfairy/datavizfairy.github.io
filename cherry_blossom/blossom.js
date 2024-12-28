@@ -52,7 +52,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 18)
-    .attr("y", -20) // Slightly below the title
+    .attr("y", -15) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
