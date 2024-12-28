@@ -1,5 +1,5 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 100, right: 30, bottom: 20, left: 60 };
+const margin = { top: 150, right: 30, bottom: 20, left: 60 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
@@ -30,7 +30,7 @@ svg.append("circle")
 // Append a title
 svg.append("text")
     .attr("x", 50) // Position relative to the left margin
-    .attr("y", 25) // Position above the chart
+    .attr("y", -25) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -40,7 +40,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 50)
-    .attr("y", 50) // Slightly below the title
+    .attr("y", 0) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
