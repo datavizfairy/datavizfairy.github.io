@@ -1,5 +1,5 @@
 // Define margins with extra top space for title and subtitle
-const margin = { top: 60, right: 30, bottom: 150, left: 50 };
+const margin = { top: 60, right: 30, bottom: 110, left: 50 };
 
 // Create the SVG with proportional scaling
 const svg = d3.select("#container")
@@ -43,7 +43,7 @@ svg.append("text")
 // Append a title
 svg.append("text")
     .attr("x", 15) // Position relative to the left margin
-    .attr("y", -40) // Position above the chart
+    .attr("y", -35) // Position above the chart
     .attr("text-anchor", "start")
     .style("font-size", "18px")
     .style("font-family", "Montserrat, sans-serif") 
@@ -53,7 +53,7 @@ svg.append("text")
 // Append a subtitle
 svg.append("text")
     .attr("x", 15)
-    .attr("y", -30) // Slightly below the title
+    .attr("y", -25) // Slightly below the title
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
     .style("font-size", "11px")
@@ -63,8 +63,7 @@ svg.append("text")
 
 // Append a group for the chart
 const chart = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`); // Proper use of backticks
-
+    .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // Tooltip reference
 const tooltip = d3.select("#tooltip");
@@ -84,7 +83,7 @@ function sakuraPath(size) {
         const cy = Math.sin(angle + (nextAngle - angle) / 2) * controlRadius;
         const x2 = Math.cos(nextAngle) * radius;
         const y2 = Math.sin(nextAngle) * radius;
-        path += L${x1},${y1} Q${cx},${cy} ${x2},${y2} ;
+        path += `L${x1},${y1} Q${cx},${cy} ${x2},${y2} `;
     }
     path += "Z"; // Close the shape
     return path;
@@ -174,8 +173,6 @@ chart.append("g")
 
 // Remove the X-axis line
 chart.select(".domain").remove(); // Select and remove the X-axis line
-        
-
     // Draw Y-axis and gridlines with custom ticks
     drawYAxis(yScale, chart, height, width);
     
@@ -191,13 +188,13 @@ chart.select(".domain").remove(); // Select and remove the X-axis line
         .attr("d", d => sakuraPath(20)) // Initial size
         .attr("fill", () => shadesOfPink[Math.floor(Math.random() * shadesOfPink.length)])
         .attr("opacity", 0.8)
-        .attr("transform", d => translate(${xScale(d.Year)},${yScale(d.FullDate)}))
+        .attr("transform", d => `translate(${xScale(d.Year)},${yScale(d.FullDate)})`)
         .on("mouseover", (event, d) => {
             tooltip.style("opacity", 1)
-                .html(Year: ${d.Year}<br>Date: ${new Date(d.FullDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d["Reference Name"]});
+                .html(`Year: ${d.Year}<br>Date: ${new Date(d.FullDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}<br>Reference: ${d["Reference Name"]}`);
         })
         .on("mousemove", event => {
-            tooltip.style("left", ${event.pageX + 10}px).style("top", ${event.pageY - 10}px);
+            tooltip.style("left", `${event.pageX + 10}px`).style("top", `${event.pageY - 10}px`);
         })
         .on("mouseout", () => {
             tooltip.style("opacity", 0);
@@ -219,7 +216,7 @@ chart.select(".domain").remove(); // Select and remove the X-axis line
                     const centerY = yScale(d.FullDate);
                     return function (t) {
                         const angle = 360 * t; // Full rotation
-                        return translate(${centerX},${centerY}) rotate(${angle});
+                        return `translate(${centerX},${centerY}) rotate(${angle})`;
                     };
                 })
                 .on("end", rotate); // Loop rotation
