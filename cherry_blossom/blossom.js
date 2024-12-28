@@ -105,8 +105,8 @@ function sakuraPath(size) {
 // Add flower legend
 svg.append("path")
         .attr("class", "flower")
-        .attr("x", 30)
-        .attr("y", 70) 
+        .attr("x", 100)
+        .attr("y", 140) 
         .attr("d", d => sakuraPath(30)) // Initial size
         .attr("fill", "#E068B3");
 
