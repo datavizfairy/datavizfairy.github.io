@@ -96,9 +96,9 @@ const link = svg.append("a")
 
 link.append("text")
     .attr("x", 50) // Position relative to the left margin
-    .attr("y", 360) // Position above the chart
+    .attr("y", 370) // Position above the chart
     .attr("text-anchor", "start")
-    .style("font-size", "18px")
+    .style("font-size", "9px")
     .style("font-family", "Montserrat, sans-serif")
     .style("fill", "#ffffff") // Default text colour
     .attr("class", "hyperlink") // Add a class for CSS styling
