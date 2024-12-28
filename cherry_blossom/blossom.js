@@ -60,6 +60,19 @@ svg.append("text")
     .style("fill", "#ffffff")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
+
+// Append Credits
+svg.append("text")
+    .attr("x", 18)
+    .attr("y", -400) 
+    .attr("text-anchor", "start")
+    .attr("opacity", 0.8)
+    .style("font-size", "11px")
+    .style("font-family", "Montserrat, sans-serif") 
+    .style("fill", "#ffffff")
+    .text("Designed by Shreya Arya.        Data Source: Yasuyuki Aono, Osaka Prefecture University          Inspired by The Economist.");
+
+
 // Append a group for the chart
 const chart = svg.append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
