@@ -61,39 +61,18 @@ svg.append("text")
     .text("Cherry blossom trees in Kyoto, Japan are blossoming earlier in the season as global temperatures rise.");
 
 
-// Append Credits (Designed by)
+// Append Credits 
 svg.append("text")
-    .attr("x", 18)
+    .attr("x", 100)
     .attr("y", 370) 
     .attr("text-anchor", "start")
     .attr("opacity", 0.8)
-    .style("font-size", "9px")
+    .style("font-size", "8px")
     .style("font-family", "Montserrat, sans-serif") 
     .style("fill", "#ffffff")
-    .text("Designed by Shreya Arya.‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎Data Source: Yasuyuki Aono, Osaka Prefecture University");
+    .text("Designed by Shreya Arya.‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎‎Data Source: Yasuyuki Aono, Osaka Prefecture University‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ Inspired by The Economist.‎‏‏‎‎");
 
        
-// Append Credits (Source)
-svg.append("text")
-    .attr("x", 500)
-    .attr("y", 370) 
-    .attr("text-anchor", "start")
-    .attr("opacity", 0.8)
-    .style("font-size", "9px")
-    .style("font-family", "Montserrat, sans-serif") 
-    .style("fill", "#ffffff")
-    .text("Data Source: Yasuyuki Aono, Osaka Prefecture University");
-
-// Append Credits (Inspired)
-svg.append("text")
-    .attr("x", 800)
-    .attr("y", 370) 
-    .attr("text-anchor", "start")
-    .attr("opacity", 0.8)
-    .style("font-size", "9px")
-    .style("font-family", "Montserrat, sans-serif") 
-    .style("fill", "#ffffff")
-    .text("Inspired by The Economist.");
 
 // Append a group for the chart
 const chart = svg.append("g")
