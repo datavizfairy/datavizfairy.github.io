@@ -27,6 +27,19 @@ svg.append("circle")
     .attr("fill", "#fdfd96") // Soft yellow for the moon
     .style("filter", "url(#glow)"); // Apply the glow effect
 
+
+// Append Kanji
+svg.append("text")
+    .attr("x", 20)
+    .attr("y", 0) // Slightly below the title
+    .attr("text-anchor", "start")
+    .attr("opacity", 0.8)
+    .style("font-size", "11px")
+    .style("font-family", "Montserrat, sans-serif") 
+    .style("fill", "#ffffff")
+    .text("京都");
+
+
 // Append a title
 svg.append("text")
     .attr("x", 28) // Position relative to the left margin
