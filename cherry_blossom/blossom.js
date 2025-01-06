@@ -217,7 +217,7 @@ function renderChart(data) {
         .attr("y", 0)
         .attr("width", xScale(xMax) - xScale(xMin))
         .attr("height", height)
-        .attr("fill", "#343f5d")
+        .attr("fill", "#4f68a3")
         .attr("opacity", 0.3);
 
     
@@ -240,7 +240,7 @@ chart.select(".domain").remove(); // Select and remove the X-axis line
     
 
     // Data Points (Flowers)
-    const shadesOfPink = ["#FFFFFF", "#EDC9EF", "#E068B3", "#DECFE9", "#F4A6DE"];
+    const shadesOfPink = ["#d5bfe0", "#b983b1", "#8f86ba", "#b18dca", "#faf9fe"];
 
     const flowers = chart.selectAll(".flower")
         .data(data)
