@@ -240,7 +240,7 @@ chart.select(".domain").remove(); // Select and remove the X-axis line
     
 
     // Data Points (Flowers)
-    const shadesOfPink = ["#d5bfe0", "#b983b1", "#8f86ba", "#b18dca", "#faf9fe"];
+    const shadesOfPink = ["#E068B3", "#F6B6DE", "#DCCCE5", "#93A7EB", "#DEE3EE"];
 
     const flowers = chart.selectAll(".flower")
         .data(data)
