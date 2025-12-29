@@ -1,0 +1,39 @@
+
+body {
+    background-image: linear-gradient(to right,#ffffff,#f6f9fd);
+    height: 100vh;
+    color: rgb(64, 67, 74);;
+}
+
+.upper-logo {
+    height: 32px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+}
+
+.logo {
+    height: 53px;
+}
+
+.header-accessory {
+    height: 20px;
+    background-image: linear-gradient(to right,#d5edfe,#e9e8fd);
+}
+
+img {
+    height: 20%;
+}
+
+.top-card {
+    background-image: url(./Assets/Images/datavizfairy-flower-background.png);
+    background-size: 100%;
+}
+
+.white-cover {
+    background-color: #ffffffa7;
+}
+
+.nav-item.main{
+    background-image: linear-gradient(to right, #d5edfe, #e9e8fd);
+    border-radius: 1vh;
+}
