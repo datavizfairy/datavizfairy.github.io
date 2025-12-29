@@ -25,7 +25,7 @@ img {
 }
 
 .top-card {
-    background-image: url(./Assets/Images/datavizfairy-flower-background.png);
+    background-image: url(./assets/Images/datavizfairy-flower-background.png);
     background-size: 100%;
 }
 
@@ -36,4 +36,5 @@ img {
 .nav-item.main{
     background-image: linear-gradient(to right, #d5edfe, #e9e8fd);
     border-radius: 1vh;
+
 }
